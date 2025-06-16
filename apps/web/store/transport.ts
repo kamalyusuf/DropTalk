@@ -1,5 +1,5 @@
 import { createstore } from "../utils/store";
-import type { Transport } from "mediasoup-client/lib/types";
+import type { Transport } from "mediasoup-client/types";
 
 interface TransportStore {
   send_transport: Transport | null;

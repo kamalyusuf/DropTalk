@@ -1,4 +1,4 @@
-import type { Producer } from "mediasoup-client/lib/types";
+import type { Producer } from "mediasoup-client/types";
 import { createstore, type Set } from "../utils/store";
 
 interface ProducerStore {

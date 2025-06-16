@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import type { Consumer } from "mediasoup-client/lib/types";
+import type { Consumer } from "mediasoup-client/types";
+// import type { Consumer } from "mediasoup-client/lib/types";
 
 interface Props {
   consumer: Consumer;

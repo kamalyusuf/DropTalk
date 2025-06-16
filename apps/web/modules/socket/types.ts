@@ -4,7 +4,7 @@ import type {
   RtpCapabilities,
   RtpParameters,
   TransportOptions as TTransportOptions
-} from "mediasoup-client/lib/types";
+} from "mediasoup-client/types";
 import type {
   ServerToClientEvents as TServerToClientEvents,
   ClientToServerEvents as TClientToServerEvents,
