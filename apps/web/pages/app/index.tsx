@@ -28,6 +28,7 @@ const AppEntryPage: PageComponent = () => {
       <Box
         style={{
           maxWidth: 420,
+          width: "100%",
           margin: "0 auto",
           paddingTop: "clamp(2rem, 8vh, 4rem)"
         }}

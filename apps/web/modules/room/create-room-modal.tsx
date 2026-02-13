@@ -1,4 +1,4 @@
-import { Modal, Title } from "@mantine/core";
+import { Modal, Text } from "@mantine/core";
 import { CreateRoomForm } from "./create-room-form";
 
 interface Props {
@@ -12,10 +12,9 @@ export const CreateRoomModal = ({ opened, setopened }: Props) => {
       opened={opened}
       onClose={() => setopened(false)}
       title={
-        <Title order={3}>Create a room</Title>
-        // <Text fw={700} size="xl" c="white" style={{ letterSpacing: "-0.01em" }}>
-        //   Create a room
-        // </Text>
+        <Text fw={700} size="xl">
+          Create a room
+        </Text>
       }
       size="md"
       radius="var(--radius-card)"

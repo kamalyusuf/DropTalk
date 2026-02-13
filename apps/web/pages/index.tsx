@@ -18,7 +18,8 @@ import {
   IconUsers,
   IconLock,
   IconMessageCircle,
-  IconArrowRight
+  IconArrowRight,
+  IconBrandGithub
 } from "@tabler/icons-react";
 
 const LandingPage = () => {
@@ -332,16 +333,29 @@ const LandingPage = () => {
               <Text size="sm" c="dimmed">
                 uhhhh — voice rooms, drop in and talk
               </Text>
-              <Button
-                component={Link}
-                href="/app"
-                variant="subtle"
-                color="gray"
-                size="xs"
-                radius="md"
-              >
-                Open app
-              </Button>
+              <Group gap="xs">
+                {/* <Button
+                  component={Link}
+                  href="/app"
+                  variant="subtle"
+                  color="gray"
+                  size="xs"
+                  radius="md"
+                >
+                  Open app
+                </Button> */}
+                <Button
+                  component="a"
+                  href="https://github.com/kamalyusuf/uhhhh"
+                  target="_blank"
+                  variant="subtle"
+                  color="gray"
+                  size="xs"
+                  leftSection={<IconBrandGithub size={16} />}
+                >
+                  GitHub
+                </Button>
+              </Group>
             </Group>
           </Container>
         </Box>

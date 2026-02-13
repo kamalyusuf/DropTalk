@@ -188,7 +188,7 @@ export const RoomPanel = ({ room, actions }: Props) => {
             }}
           >
             <SimpleGrid
-              cols={{ base: 1, xs: 2, sm: 3 }}
+              cols={{ base: 1, sm: 2, md: 3 }}
               spacing="sm"
               p="lg"
               pt="xs"

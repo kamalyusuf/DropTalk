@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Box, Stack, Text, Group, ThemeIcon } from "@mantine/core";
 import { IconSettings, IconUsers } from "@tabler/icons-react";
+import { useMediaQuery } from "@mantine/hooks";
+
 import { useUserStore } from "../store/user";
 import { useRoomStore } from "../store/room";
 
@@ -17,12 +19,14 @@ export function AppSidebar() {
   const roomState = useRoomStore((state) => state.state);
   const inRoom = roomState === "connected";
 
+  const matches = useMediaQuery("(max-width: 768px)");
+
   return (
     <Box
       component="aside"
       style={{
-        width: "var(--sidebar-width)",
-        minWidth: "var(--sidebar-width)",
+        width: matches ? "100%" : "var(--sidebar-width)",
+        minWidth: matches ? "100%" : "var(--sidebar-width)",
         height: "100%",
         borderRight: "1px solid var(--color-shade)",
         backgroundColor: "var(--color-surface)",
@@ -104,6 +108,36 @@ export function AppSidebar() {
             </Box>
           );
         })}
+
+        {/* <Box style={{ flex: 1 }} />
+
+        <Box
+          component="a"
+          href="https://github.com/kamalyusuf/uhhhh"
+          target="_blank"
+          style={{
+            pointerEvents: inRoom ? "none" : undefined,
+            borderRadius: "var(--radius-app)",
+            padding: "10px 12px",
+            textDecoration: "none"
+          }}
+          onMouseEnter={(e) => {
+            if (!inRoom)
+              e.currentTarget.style.backgroundColor = "var(--color-shade)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+          }}
+        >
+          <Group gap="sm">
+            <ThemeIcon size="md" radius="md" variant="subtle" color="gray">
+              <IconBrandGithub size={18} />
+            </ThemeIcon>
+            <Text size="sm" fw={500} c="dimmed">
+              GitHub
+            </Text>
+          </Group>
+        </Box> */}
       </Stack>
 
       {user && (

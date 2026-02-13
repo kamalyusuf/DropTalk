@@ -57,6 +57,7 @@ export const SettingsPage: PageComponent = () => {
       <Box
         style={{
           maxWidth: 560,
+          width: "100%",
           margin: "0 auto"
         }}
       >

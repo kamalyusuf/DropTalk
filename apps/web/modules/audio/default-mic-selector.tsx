@@ -15,10 +15,10 @@ export const DefaultMicSelector = () => {
     }))
   );
 
-  const enumerate = async () => {
+  const enumerate = async (delay?: number) => {
     setenumerating(true);
 
-    await sleep(500);
+    if (delay) await sleep(delay);
 
     try {
       const info = await navigator.mediaDevices.enumerateDevices();
@@ -73,7 +73,7 @@ export const DefaultMicSelector = () => {
             color="gray"
             size="xs"
             radius="md"
-            onClick={enumerate}
+            onClick={() => enumerate(250)}
           >
             Refresh list
           </Button>

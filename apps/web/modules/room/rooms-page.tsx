@@ -15,7 +15,7 @@ export const RoomsPage: PageComponent = () => {
 
   return (
     <Layout title="Rooms">
-      <Box style={{ maxWidth: 900, margin: "0 auto" }}>
+      <Box style={{ maxWidth: 900, width: "100%", margin: "0 auto" }}>
         <Group
           justify="space-between"
           align="flex-end"
