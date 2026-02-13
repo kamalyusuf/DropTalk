@@ -1,5 +1,5 @@
 import { useSocketQuery } from "../../hooks/use-socket-query";
-import { Center, Loader, ScrollArea, Stack } from "@mantine/core";
+import { Center, Loader, Box, Text } from "@mantine/core";
 import { RoomCard } from "./room-card";
 import { Alert } from "../../components/alert";
 import { useSocket } from "../socket/socket-provider";
@@ -42,18 +42,44 @@ export const Rooms = () => {
 
   if (data)
     return (
-      <ScrollArea
-        type="auto"
-        offsetScrollbars
-        styles={{ thumb: { backgroundColor: "var(--color-primary)" } }}
-      >
-        <Stack>
-          {data.rooms.map((room) => (
-            <RoomCard key={room._id} room={room} />
-          ))}
-        </Stack>
-      </ScrollArea>
+      <>
+        {data.rooms.length === 0 ? (
+          <Box py="xl" ta="center">
+            <Text c="dimmed">No rooms yet. Create one to get started.</Text>
+          </Box>
+        ) : (
+          <>
+            {data.rooms.map((room) => (
+              <RoomCard key={room._id} room={room} />
+            ))}
+          </>
+        )}
+      </>
     );
+
+  // if (data)
+  //   return (
+  //     <ScrollArea
+  //       type="auto"
+  //       offsetScrollbars
+  //       // style={{ flex: 1, minHeight: 0 }}
+  //       styles={{
+  //         // root: { flex: 1, minHeight: 0 },
+  //         // viewport: { minHeight: 0 },
+  //         thumb: { backgroundColor: "var(--color-primary)" }
+  //       }}
+  //     >
+  //       <Stack gap="sm">
+  //         {data.rooms.length === 0 ? (
+  //           <Box py="xl" ta="center">
+  //             <Text c="dimmed">No rooms yet. Create one to get started.</Text>
+  //           </Box>
+  //         ) : (
+  //           data.rooms.map((room) => <RoomCard key={room._id} room={room} />)
+  //         )}
+  //       </Stack>
+  //     </ScrollArea>
+  //   );
 
   return null;
 };

@@ -1,5 +1,5 @@
-import { TextInput, ActionIcon, Stack } from "@mantine/core";
-import { AiOutlineSend } from "react-icons/ai";
+import { TextInput, ActionIcon } from "@mantine/core";
+import { IconSend } from "@tabler/icons-react";
 import { useState, useRef } from "react";
 import { CHAT_TEXT_LIMIT } from "../../../utils/constants";
 import { useSocket } from "../../socket/socket-provider";
@@ -14,7 +14,7 @@ export const ChatMessageInput = () => {
   useHotkeys([["c", () => ref.current?.focus()]]);
 
   const send = () => {
-    if (!socket) return toast.error("web server is down");
+    if (!socket) return toast.error("Web server is down");
 
     if (!content.trim()) return;
 
@@ -23,46 +23,36 @@ export const ChatMessageInput = () => {
   };
 
   return (
-    <Stack gap={5}>
-      <TextInput
-        ref={ref}
-        placeholder="chat..."
-        variant="filled"
-        rightSection={
-          <ActionIcon variant="filled" color="indigo" onClick={send}>
-            <AiOutlineSend />
-          </ActionIcon>
+    <TextInput
+      ref={ref}
+      placeholder="Type a message..."
+      variant="filled"
+      radius="md"
+      size="md"
+      rightSection={
+        <ActionIcon
+          variant="light"
+          color="indigo"
+          size="sm"
+          radius="md"
+          onClick={send}
+          aria-label="Send"
+        >
+          <IconSend size={16} />
+        </ActionIcon>
+      }
+      styles={{ root: { width: "100%" } }}
+      value={content}
+      onChange={(e) =>
+        setcontent(e.currentTarget.value.slice(0, CHAT_TEXT_LIMIT))
+      }
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          send();
         }
-        styles={{
-          root: {
-            width: "100%"
-          }
-        }}
-        value={content}
-        onChange={(e) =>
-          setcontent(e.currentTarget.value.slice(0, CHAT_TEXT_LIMIT))
-        }
-        onKeyDown={(event) => {
-          switch (event.key) {
-            case "Enter":
-              event.preventDefault();
-              send();
-              break;
-          }
-        }}
-        autoComplete="off"
-      />
-      <span
-        style={{
-          fontSize: 12,
-          color:
-            content.length >= CHAT_TEXT_LIMIT
-              ? "var(--color-danger)"
-              : "var(--color-primary)"
-        }}
-      >
-        character count: {content.length} (max {CHAT_TEXT_LIMIT})
-      </span>
-    </Stack>
+      }}
+      autoComplete="off"
+    />
   );
 };

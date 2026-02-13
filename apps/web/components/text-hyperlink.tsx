@@ -18,8 +18,8 @@ export const TextHyperlink = ({ children, ...props }: Props) => {
               component="a"
               href={part.startsWith("http") ? part : `https://${part}`}
               c="indigo"
+              size="sm"
               className="cursor-pointer hover-underline"
-              style={{ fontSize: 14 }}
               target="_blank"
               rel="noopener noreferrer"
             >

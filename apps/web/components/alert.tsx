@@ -50,12 +50,12 @@ export const Alert = ({ type, message, wrap, style }: AlertProps) => {
     <Container my={wrap ? 20 : undefined} style={style}>
       <Center>
         <Paper
-          shadow="md"
-          p={20}
-          radius="md"
+          shadow="var(--shadow-card)"
+          p="lg"
+          radius="var(--radius-card)"
           style={{
-            backgroundColor: "var(--color-shade)",
-            borderColor: "var(--color-shade)"
+            backgroundColor: "var(--color-elevated)",
+            border: "1px solid var(--color-shade)"
           }}
         >
           <Group gap={20} align="center">

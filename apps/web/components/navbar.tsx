@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Group, Box, Button, Title } from "@mantine/core";
+import { Group, Box, Button, Text } from "@mantine/core";
 import { Container } from "./container";
 import { useUserStore } from "../store/user";
 import { useRouter } from "next/router";
@@ -11,24 +11,36 @@ export const NavBar = () => {
   const state = useRoomStore((state) => state.state);
 
   return (
-    <Box py={20}>
+    <Box py="md" style={{ borderBottom: "1px solid var(--color-shade)" }}>
       <Container>
         <Group justify="space-between" align="center">
-          <Link href="/" legacyBehavior passHref scroll={false}>
-            <Title
+          <Link
+            href="/"
+            legacyBehavior
+            passHref
+            scroll={false}
+            style={{ textDecoration: "none" }}
+          >
+            <Text
+              fw={700}
+              size="lg"
+              c="white"
               className="cursor-pointer"
               style={{
-                pointerEvents: state === "connected" ? "none" : undefined
+                pointerEvents: state === "connected" ? "none" : undefined,
+                letterSpacing: "-0.02em"
               }}
             >
               uhhhh
-            </Title>
+            </Text>
           </Link>
 
           {!!user && (
             <Button
-              size="sm"
-              onClick={() => router.push("/settings")}
+              size="xs"
+              variant="subtle"
+              color="gray"
+              onClick={() => router.push("/app/settings")}
               style={{
                 pointerEvents: state === "connected" ? "none" : undefined
               }}

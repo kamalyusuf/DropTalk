@@ -1,4 +1,4 @@
-import { Modal, Text } from "@mantine/core";
+import { Modal, Title } from "@mantine/core";
 import { CreateRoomForm } from "./create-room-form";
 
 interface Props {
@@ -8,19 +8,32 @@ interface Props {
 
 export const CreateRoomModal = ({ opened, setopened }: Props) => {
   return (
-    <>
-      <Modal
-        opened={opened}
-        onClose={() => setopened(false)}
-        title={
-          <Text fz={22} fw="bold" c="dark">
-            create a room
-          </Text>
+    <Modal
+      opened={opened}
+      onClose={() => setopened(false)}
+      title={
+        <Title order={3}>Create a room</Title>
+        // <Text fw={700} size="xl" c="white" style={{ letterSpacing: "-0.01em" }}>
+        //   Create a room
+        // </Text>
+      }
+      size="md"
+      radius="var(--radius-card)"
+      padding="xl"
+      styles={{
+        content: {
+          backgroundColor: "var(--color-elevated)",
+          border: "1px solid var(--color-shade)",
+          boxShadow: "var(--shadow-card)"
+        },
+        header: {
+          backgroundColor: "var(--color-elevated)",
+          borderBottom: "1px solid var(--color-shade)",
+          paddingBottom: 0
         }
-        size="sm"
-      >
-        <CreateRoomForm oncancel={() => setopened(false)} />
-      </Modal>
-    </>
+      }}
+    >
+      <CreateRoomForm oncancel={() => setopened(false)} />
+    </Modal>
   );
 };

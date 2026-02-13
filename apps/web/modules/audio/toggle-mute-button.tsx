@@ -10,14 +10,15 @@ export const ToggleMuteButton = ({ toggle }: Props) => {
   const producer = useProducerStore((state) => state.producer);
 
   return (
-    <>
-      <ActionIcon
-        onClick={toggle}
-        variant="filled"
-        color={producer?.paused ? "red" : "indigo"}
-      >
-        {producer?.paused ? <IoMdMicOff /> : <IoMdMic />}
-      </ActionIcon>
-    </>
+    <ActionIcon
+      onClick={toggle}
+      variant="light"
+      color={producer?.paused ? "red" : "indigo"}
+      size="lg"
+      radius="xl"
+      aria-label={producer?.paused ? "Unmute" : "Mute"}
+    >
+      {producer?.paused ? <IoMdMicOff size={24} /> : <IoMdMic size={24} />}
+    </ActionIcon>
   );
 };

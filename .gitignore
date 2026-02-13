@@ -46,3 +46,4 @@ yarn-error.log*
 ignore.txt
 *.conf
 *.yml
+todo

@@ -238,7 +238,7 @@ export const useRoom = (room: Room) => {
 
         await leave();
 
-        await router.replace("/rooms");
+        await router.replace("/app/rooms");
       });
 
       producerstore.add(producer);

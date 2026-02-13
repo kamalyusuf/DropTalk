@@ -1,14 +1,12 @@
-import { api } from "../../lib/api";
-import { ssquery } from "../../utils/ss-query";
+import type { GetServerSideProps } from "next";
 
-export { RoomPage as default } from "../../modules/room/room-page";
+const Redirect = () => null;
 
-export const getServerSideProps = ssquery(async ({ params }) => {
-  const id = typeof params?.id === "string" ? params.id : "";
-
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id = typeof context.params?.id === "string" ? context.params.id : "";
   return {
-    props: {
-      room: (await api.get(`/rooms/${id}`)).data
-    }
+    redirect: { destination: `/app/rooms/${id}`, permanent: true }
   };
-});
+};
+
+export default Redirect;

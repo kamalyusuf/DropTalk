@@ -30,5 +30,10 @@ export const styles: MantineThemeComponents = {
       order: 2,
       c: "white"
     }
+  },
+  Text: {
+    defaultProps: {
+      c: "white"
+    }
   }
 };

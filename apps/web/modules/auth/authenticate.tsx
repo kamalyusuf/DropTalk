@@ -7,7 +7,8 @@ export const Authenticated = ({ children }: { children: JSX.Element }) => {
   const { replace } = useRouter();
 
   useEffect(() => {
-    if (!user) replace(`/?cb=${encodeURIComponent(window.location.pathname)}`);
+    if (!user)
+      replace(`/app?cb=${encodeURIComponent(window.location.pathname)}`);
   }, [replace, user]);
 
   if (user) return <>{children}</>;
@@ -20,7 +21,8 @@ export const Unauthenticated = ({ children }: { children: JSX.Element }) => {
   const { replace, query } = useRouter();
 
   useEffect(() => {
-    if (user) replace(new URLSearchParams(query as any).get("cb") ?? "/rooms");
+    if (user)
+      replace(new URLSearchParams(query as any).get("cb") ?? "/app/rooms");
   }, [replace, user, query]);
 
   if (!user) return <>{children}</>;

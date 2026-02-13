@@ -1,13 +1,13 @@
 import {
   Box,
-  Center,
   Paper,
   TextInput,
   Checkbox,
   Button,
-  Divider,
   Stack,
-  Switch
+  Switch,
+  Title,
+  Text
 } from "@mantine/core";
 import { Layout } from "../../components/layout";
 import { toast } from "react-toastify";
@@ -22,10 +22,7 @@ import type { PageComponent } from "../../types";
 
 export const SettingsPage: PageComponent = () => {
   const { update, user } = useUserStore(
-    useShallow((state) => ({
-      user: state.user!,
-      update: state.update
-    }))
+    useShallow((state) => ({ user: state.user!, update: state.update }))
   );
   const [name, setname] = useState(user.display_name);
   const { socket } = useSocket();
@@ -42,93 +39,148 @@ export const SettingsPage: PageComponent = () => {
   );
 
   const onsubmit = async () => {
-    if (!socket) return toast.error("web server is down");
+    if (!socket) return toast.error("Web server is down");
 
     const res = await request({
       socket,
       event: "update display name",
-      payload: {
-        new_display_name: name
-      }
+      payload: { new_display_name: name }
     });
 
     if (!res.ok) return;
-
     update(res.peer.display_name, remember);
-    toast.success("saved");
+    toast.success("Saved");
   };
 
   return (
-    <>
-      <Layout title={`${user.display_name} settings`}>
-        <Box>
-          <Center>
-            <Paper p="xl" shadow="sm" radius="md" style={{ width: 350 }}>
-              <Stack gap={10}>
-                <form
-                  onSubmit={(event) => {
-                    event.preventDefault();
+    <Layout title={`${user.display_name} — Settings`}>
+      <Box
+        style={{
+          maxWidth: 560,
+          margin: "0 auto"
+        }}
+      >
+        <Title
+          order={1}
+          fw={700}
+          c="white"
+          mb="xl"
+          style={{ letterSpacing: "-0.02em" }}
+        >
+          Settings
+        </Title>
 
-                    onsubmit();
-                  }}
-                >
-                  <Stack>
-                    <TextInput
-                      placeholder="display name"
-                      label="display name"
-                      required
-                      value={name}
-                      onChange={(event) => setname(event.currentTarget.value)}
-                    />
-                    <Checkbox
-                      label="remember me"
-                      size="xs"
-                      checked={remember}
-                      onChange={(event) =>
-                        setremember(event.currentTarget.checked)
-                      }
-                    />
-                    <Button type="submit">update</Button>
-                  </Stack>
-                </form>
-
-                <Divider size="xs" color="indigo" />
-
-                <Switch
-                  label="automatically join created room"
-                  checked={autojoin}
-                  onChange={(event) =>
-                    setsettings({ auto_join_room: event.currentTarget.checked })
-                  }
+        <Stack gap="lg">
+          <Paper
+            p="xl"
+            radius="var(--radius-card)"
+            style={{
+              backgroundColor: "var(--color-elevated)",
+              border: "1px solid var(--color-shade)",
+              boxShadow: "var(--shadow-card)"
+            }}
+          >
+            <Title order={3} mb="md">
+              Profile
+            </Title>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                onsubmit();
+              }}
+            >
+              <Stack gap="md">
+                <TextInput
+                  label={<Text component="span">Display name</Text>}
+                  placeholder="Your name"
+                  required
+                  value={name}
+                  onChange={(e) => setname(e.currentTarget.value)}
+                  radius="md"
+                  size="sm"
                 />
-
-                <Switch
-                  label="notify when someone joins the room"
-                  checked={notifyonjoin}
-                  onChange={(event) =>
-                    setsettings({ notify_on_join: event.currentTarget.checked })
+                <Checkbox
+                  label={
+                    <Text component="span">Remember me on this browser</Text>
                   }
+                  size="sm"
+                  checked={remember}
+                  onChange={(e) => setremember(e.currentTarget.checked)}
                 />
-
-                <Switch
-                  label="message timestamp"
-                  checked={timestamp}
-                  onChange={(event) =>
-                    setsettings({
-                      message_timestamp: event.currentTarget.checked
-                    })
-                  }
-                />
-
-                <Divider size="xs" color="indigo" />
-
-                <DefaultMicSelector />
+                <Button type="submit" size="sm" radius="md">
+                  Save changes
+                </Button>
               </Stack>
-            </Paper>
-          </Center>
-        </Box>
-      </Layout>
-    </>
+            </form>
+          </Paper>
+
+          <Paper
+            p="xl"
+            radius="var(--radius-card)"
+            style={{
+              backgroundColor: "var(--color-elevated)",
+              border: "1px solid var(--color-shade)",
+              boxShadow: "var(--shadow-card)"
+            }}
+          >
+            <Title order={3} mb="md">
+              Preferences
+            </Title>
+            <Stack gap="sm">
+              <Switch
+                label={
+                  <Text component="span">
+                    Automatically join room after creating it
+                  </Text>
+                }
+                size="sm"
+                checked={autojoin}
+                onChange={(e) =>
+                  setsettings({ auto_join_room: e.currentTarget.checked })
+                }
+              />
+              <Switch
+                label={
+                  <Text component="span">
+                    Notify when someone joins the room
+                  </Text>
+                }
+                size="sm"
+                checked={notifyonjoin}
+                onChange={(e) =>
+                  setsettings({ notify_on_join: e.currentTarget.checked })
+                }
+              />
+              <Switch
+                label={
+                  <Text component="span">Show timestamps on chat messages</Text>
+                }
+                size="sm"
+                checked={timestamp}
+                onChange={(e) =>
+                  setsettings({ message_timestamp: e.currentTarget.checked })
+                }
+              />
+            </Stack>
+          </Paper>
+
+          <Paper
+            p="xl"
+            radius="var(--radius-card)"
+            style={{
+              backgroundColor: "var(--color-elevated)",
+              border: "1px solid var(--color-shade)",
+              boxShadow: "var(--shadow-card)"
+            }}
+          >
+            <Title order={3} mb="md">
+              Audio
+            </Title>
+            <DefaultMicSelector />
+          </Paper>
+        </Stack>
+      </Box>
+    </Layout>
   );
 };
 

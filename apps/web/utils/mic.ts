@@ -16,9 +16,9 @@ export const micenabled = async (): Promise<boolean> => {
     const error = e as Error;
 
     if (error.message === "Requested device not found")
-      toast.error("no microphone(s) detected");
+      toast.error("No microphone(s) detected");
     else if (error.message === "Permission denied")
-      toast.error("microphone access is denied");
+      toast.error("Microphone access is denied");
     else toast.error(error.message);
 
     return false;

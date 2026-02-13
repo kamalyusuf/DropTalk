@@ -12,11 +12,7 @@ export const ChatMessageCard = ({ message }: Props) => {
   const timestamp = useSettingsStore((state) => state.message_timestamp);
 
   return (
-    <Group
-      align="center"
-      justify="center"
-      style={{ paddingLeft: 7, paddingRight: 7 }}
-    >
+    <Group align="center" justify="center" px="md">
       <Box
         style={{
           wordBreak: "break-all",
@@ -26,27 +22,57 @@ export const ChatMessageCard = ({ message }: Props) => {
         }}
       >
         {timestamp && (
-          <span style={{ fontSize: 14, color: "white" }}>
+          <span style={{ color: "white" }}>
             {format(message.created_at, "HH:mm")}{" "}
           </span>
         )}
         <Text
-          size="sm"
+          c={chatcolor(message.creator._id)}
           style={{
-            color: chatcolor(message.creator._id),
-            display: "inline",
-            fontSize: 14
+            display: "inline"
           }}
         >
           {message.creator.display_name}
         </Text>
-        <span style={{ color: "white", fontSize: 14 }}>: </span>
-        <TextHyperlink c="white" style={{ display: "inline", fontSize: 14 }}>
+        <span style={{ color: "white" }}>: </span>
+        <TextHyperlink c="white" style={{ display: "inline" }}>
           {message.content}
         </TextHyperlink>
       </Box>
     </Group>
   );
+
+  // return (
+  //   <Box
+  //     px="md"
+  //     py="xs"
+  //     style={{
+  //       borderBottom: "1px solid var(--color-shade)"
+  //     }}
+  //   >
+  //     <Box style={{ wordBreak: "break-word" }}>
+  //       {timestamp && (
+  //         <Text component="span" size="xs" c="dimmed" mr="xs">
+  //           {format(message.created_at, "HH:mm")}
+  //         </Text>
+  //       )}
+  //       <Text
+  //         component="span"
+  //         size="sm"
+  //         fw={600}
+  //         style={{ color: chatcolor(message.creator._id) }}
+  //       >
+  //         {message.creator.display_name}
+  //       </Text>
+  //       <Text component="span" size="sm" c="dimmed">
+  //         {" "}
+  //       </Text>
+  //       <TextHyperlink size="sm" c="white">
+  //         {message.content}
+  //       </TextHyperlink>
+  //     </Box>
+  //   </Box>
+  // );
 };
 
 function chatcolor(str: string): string {

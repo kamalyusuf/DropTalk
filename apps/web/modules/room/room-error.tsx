@@ -13,12 +13,12 @@ export const RoomError = () => {
       type="error"
       message={
         deviceerror
-          ? "please refresh the page"
+          ? "Please refresh the page"
           : micerror
-            ? "microphone access is denied"
+            ? "Microphone access is denied"
             : devicemissingerror
-              ? "no microphone(s) detected"
-              : error ?? "could not join room"
+              ? "No microphone(s) detected"
+              : (error ?? "Could not join room")
       }
       wrap
     />

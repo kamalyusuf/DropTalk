@@ -1,18 +1,14 @@
 import Head from "next/head";
-import { NavBar } from "./navbar";
-import { Stack, type StackProps } from "@mantine/core";
+import { Box, Group } from "@mantine/core";
+import { AppSidebar } from "./app-sidebar";
 import type { PropsWithChildren } from "react";
 
-interface Props extends StackProps {
+interface Props {
   title?: string;
+  children: React.ReactNode;
 }
 
-export const Layout = ({
-  children,
-  gap = 15,
-  title,
-  ...props
-}: PropsWithChildren<Props>) => {
+export const Layout = ({ children, title }: PropsWithChildren<Props>) => {
   return (
     <>
       {title ? (
@@ -21,10 +17,39 @@ export const Layout = ({
         </Head>
       ) : null}
 
-      <Stack gap={gap} {...props} style={{ height: "100%" }}>
-        <NavBar />
-        {children}
-      </Stack>
+      <Group
+        // align="stretch"
+        gap={0}
+        style={{ height: "100vh" }}
+      >
+        <AppSidebar />
+        <Box
+          py="xl"
+          px="lg"
+          style={{
+            flex: 1,
+            height: "100%",
+            overflow: "auto",
+            backgroundColor: "var(--color-background)"
+          }}
+        >
+          {children}
+        </Box>
+        {/* <Box
+          component="main"
+          py="xl"
+          px="lg"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            minHeight: 0,
+            overflow: "auto",
+            backgroundColor: "var(--color-background)"
+          }}
+        >
+          {children}
+        </Box> */}
+      </Group>
     </>
   );
 };
