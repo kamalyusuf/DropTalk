@@ -68,7 +68,7 @@ export class Room {
   static findbyidorfail(id: string): Room {
     const room = Room.rooms.get(id);
 
-    if (!room) throw new NotFoundError("room not found");
+    if (!room) throw new NotFoundError("Room does not exist");
 
     return room;
   }
@@ -88,7 +88,7 @@ export class Room {
 
   verifypassword(plain: string): Promise<boolean> {
     if (!this.password)
-      throw new BadRequestError("room is not password protected");
+      throw new BadRequestError("Room is not password protected");
 
     return argon2.verify(this.password, plain);
   }

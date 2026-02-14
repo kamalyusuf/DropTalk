@@ -5,7 +5,7 @@ import type {
   RtpParameters,
   WebRtcTransport,
   ConsumerType
-} from "mediasoup/node/lib/types.js";
+} from "mediasoup/types";
 import type {
   ServerToClientEvents as TServerToClientEvents,
   ClientToServerEvents as TClientToServerEvents,
@@ -80,8 +80,9 @@ export interface BaseParams<T extends ServerEvent> {
   payload: EventPayload<T>;
 }
 
-export interface CallbackEventParams<T extends ServerEvent>
-  extends BaseParams<T> {
+export interface CallbackEventParams<
+  T extends ServerEvent
+> extends BaseParams<T> {
   cb: EventCb<T>;
 }
 
@@ -103,8 +104,10 @@ interface BaseEvent<T extends ServerEvent> {
 
 export interface Event<T extends ServerEvent> extends BaseEvent<T> {}
 
-export interface CallbackEvent<T extends ServerEvent>
-  extends Omit<BaseEvent<T>, "invoke"> {
+export interface CallbackEvent<T extends ServerEvent> extends Omit<
+  BaseEvent<T>,
+  "invoke"
+> {
   invoke: (t: CallbackEventParams<T>) => void | Promise<void>;
 }
 

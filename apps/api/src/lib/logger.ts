@@ -2,7 +2,7 @@ import joi from "joi";
 import winston, { format as f } from "winston";
 import { env } from "./env.js";
 import { CustomError } from "@kamalyb/errors";
-import { captureException, captureMessage } from "@sentry/node";
+import { Sentry } from "./sentry.js";
 import type { AnyObject } from "types";
 
 const format = f.printf(({ level, message, timestamp, stack, extra }) => {
@@ -84,7 +84,7 @@ class Logger {
 
   warn(message: string, extra?: AnyObject) {
     if (env.SENTRY_DSN)
-      captureMessage(message, {
+      Sentry.captureMessage(message, {
         level: "warning",
         extra
       });
@@ -107,11 +107,15 @@ class Logger {
     const report = !(error instanceof CustomError || joi.isError(error));
 
     if (report && env.SENTRY_DSN)
-      captureException(error, {
-        extra: {
-          message,
-          ...(o?.extra ?? {})
-        }
+      Sentry.withScope((scope) => {
+        scope.setLevel("error");
+
+        scope.setExtra("message", message);
+
+        if (o?.extra)
+          for (const key in o.extra) scope.setExtra(key, o.extra[key]);
+
+        Sentry.captureException(error);
       });
 
     this.output.log({

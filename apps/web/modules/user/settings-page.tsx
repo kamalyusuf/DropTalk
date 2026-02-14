@@ -40,14 +40,16 @@ export const SettingsPage: PageComponent = () => {
   );
 
   const onsubmit = async () => {
+    const new_display_name = name.trim();
+
     if (!socket) return toast.error("Web server is down");
 
-    if (!validate_display_name(name)) return;
+    if (!validate_display_name(new_display_name)) return;
 
     const res = await request({
       socket,
       event: "update display name",
-      payload: { new_display_name: name }
+      payload: { new_display_name }
     });
 
     if (!res.ok) return;

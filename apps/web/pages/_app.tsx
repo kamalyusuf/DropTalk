@@ -1,5 +1,4 @@
 import "nprogress/nprogress.css";
-import "react-toastify/dist/ReactToastify.css";
 import "@mantine/core/styles.css";
 import "../styles/globals.css";
 import { MantineProvider } from "@mantine/core";

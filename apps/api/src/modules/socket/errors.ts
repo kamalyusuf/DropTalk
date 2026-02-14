@@ -1,23 +1,27 @@
 export class NotInRoomError extends Error {
-  constructor() {
-    super("not in room");
+  constructor(name?: string) {
+    super(
+      name
+        ? `You need to join the ${name} room before doing that.`
+        : `You need to join the room before doing that.`
+    );
   }
 }
 
 export class NoProducerFoundError extends Error {
   constructor() {
-    super("producer not found");
+    super("Producer does not exist.");
   }
 }
 
 export class NoTransportFoundError extends Error {
   constructor() {
-    super("transport not found");
+    super("Transport does not exist.");
   }
 }
 
 export class NoConsumerFoundError extends Error {
   constructor() {
-    super("consumer not found");
+    super("Consumer does not exist.");
   }
 }

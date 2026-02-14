@@ -27,7 +27,7 @@ const overload = `
 `;
 
 const overloaderror = new Error(
-  `parameters must satisfy the following overload: ${overload}`
+  `Parameters must satisfy the following overload: ${overload}`
 );
 
 export const validateargs = (
@@ -50,14 +50,14 @@ export const validateargs = (
 
   const set = (p: { [key: string]: unknown }) => {
     if (!isobject(p))
-      throw new UnprocessableEntityError("expected data to be an object");
+      throw new UnprocessableEntityError("Expected data to be an object.");
 
     if (typeof p.__request__ === "undefined")
       return p as EventPayload<ServerEvent>;
 
     if (!p.payload)
       throw new UnprocessableEntityError(
-        `expected payload to be contained in 'payload' property if __request__ (i.e the request is coming from 'request' function) is present [and must be true]`
+        `Expected payload to be contained in 'payload' property if __request__ (i.e, The request is coming from 'request' function) is present [and must be true].`
       );
 
     const { error, value } = s.validate(
@@ -80,16 +80,16 @@ export const validateargs = (
 
   if (data && cb) {
     if (!isobject(data))
-      throw new UnprocessableEntityError("expected data to be an object");
+      throw new UnprocessableEntityError("Expected data to be an object.");
 
     if (!isfunction(cb))
-      throw new UnprocessableEntityError("expected callback to be a function");
+      throw new UnprocessableEntityError("Expected callback to be a function.");
 
     eventpayload = set(data);
     callbackfn = cb;
   } else if (data && !cb && typeof data !== "function") {
     if (!isobject(data))
-      throw new UnprocessableEntityError("expected data to be an object");
+      throw new UnprocessableEntityError("Expected data to be an object.");
 
     eventpayload = set(data);
     callbackfn = undefined;
@@ -101,7 +101,7 @@ export const validateargs = (
     callbackfn = undefined;
   } else if (!data && cb) {
     if (!isfunction(cb))
-      throw new UnprocessableEntityError("expected callback to be a function");
+      throw new UnprocessableEntityError("Expected callback to be a function.");
 
     eventpayload = undefined;
     callbackfn = cb;

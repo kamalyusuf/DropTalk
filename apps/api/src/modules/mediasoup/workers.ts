@@ -1,7 +1,7 @@
 import * as mediasoup from "mediasoup";
 import os from "node:os";
 import { logger } from "../../lib/logger.js";
-import type { Worker } from "mediasoup/node/lib/types.js";
+import type { Worker } from "mediasoup/types";
 
 class MediasoupWorkers {
   private workers: Worker[];
@@ -45,7 +45,7 @@ class MediasoupWorkers {
   }
 
   next() {
-    if (this.workers.length === 0) throw new Error("workers not running");
+    if (this.workers.length === 0) throw new Error("Workers are not running");
 
     const worker = this.workers[this.worker_idx];
     if (++this.worker_idx === this.workers.length) this.worker_idx = 0;

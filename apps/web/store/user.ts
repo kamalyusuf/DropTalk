@@ -28,7 +28,7 @@ export const useUserStore = createstore<UserStore>("User", (set) => ({
 
   update: (display_name, remember) =>
     set((state) => {
-      if (!state.user) throw new Error("thou shalt not");
+      if (!state.user) throw new Error("Thou shalt not");
 
       const user = { _id: state.user._id, display_name };
 

@@ -13,7 +13,7 @@ const options: ValidationOptions = {
     }
   },
   messages: {
-    "any.invalid": "invalid {#label}"
+    "any.invalid": "Invalid {#label}"
   }
 };
 

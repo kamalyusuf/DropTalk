@@ -12,7 +12,7 @@ export const handler: CallbackEvent<"room login"> = {
     const room = Room.findbyidorfail(payload.room_id);
 
     if (!(await room.verifypassword(payload.password)))
-      throw new BadRequestError("incorrect password");
+      throw new BadRequestError("Incorrect password.");
 
     cb({ ok: true });
   }

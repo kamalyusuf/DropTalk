@@ -3,7 +3,7 @@ import type {
   Consumer,
   Transport,
   RtpCapabilities
-} from "mediasoup/node/lib/types.js";
+} from "mediasoup/types";
 import type { User } from "types";
 import type { ServerToClientEvents, TypedSocket } from "../socket/types.js";
 import type { AppData } from "./types.js";

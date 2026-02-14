@@ -3,7 +3,7 @@ import { NotFoundError } from "@kamalyb/errors";
 import { logger } from "../../lib/logger.js";
 import { Room } from "../room/room.model.js";
 import type { Peer } from "./peer.js";
-import type { Router, Producer, Consumer } from "mediasoup/node/lib/types.js";
+import type { Router, Producer, Consumer } from "mediasoup/types";
 import type { TypedIO } from "../socket/types.js";
 
 export class MediasoupRoom {
@@ -37,7 +37,7 @@ export class MediasoupRoom {
   static async create({ io, doc }: { io: TypedIO; doc: Room }) {
     const worker = workers.next();
 
-    if (!worker) throw new Error("unable to get next worker");
+    if (!worker) throw new Error("Unable to get next worker");
 
     const router = await worker.createRouter({
       mediaCodecs: [
@@ -70,7 +70,7 @@ export class MediasoupRoom {
   static findbyid(room_id: string): MediasoupRoom {
     const room = this.rooms.get(room_id);
 
-    if (!room) throw new NotFoundError("mediasoup room not found");
+    if (!room) throw new NotFoundError("Mediasoup room does not exist");
 
     return room;
   }
@@ -100,7 +100,8 @@ export class MediasoupRoom {
   }
 
   join(peer: Peer): void {
-    if (this.peers.has(peer.user._id)) throw new Error("already joined");
+    if (this.peers.has(peer.user._id))
+      throw new Error("You have already joined this room");
 
     if (!this.members_count) this.in_session_at = new Date();
 

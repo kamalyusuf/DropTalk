@@ -7,13 +7,14 @@ export const handler: CallbackEvent<"join"> = {
     if (peer.active_room_id)
       throw new Error(
         peer.active_room_id === payload.room_id
-          ? "already in room"
-          : "already in a room"
+          ? "You are already in this room."
+          : "You are in another room."
       );
 
     const room = MediasoupRoom.findbyid(payload.room_id);
 
-    if (room.has(peer.user._id)) throw new Error("already in room");
+    if (room.has(peer.user._id))
+      throw new Error("You are already in this room.");
 
     peer.rtp_capabilities = payload.rtp_capabilities;
     room.join(peer);

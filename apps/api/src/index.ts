@@ -33,7 +33,7 @@ bootstrap().catch((e) => {
   process.on(signal, (error: Error) => {
     logger.error(error);
 
-    shutdown(server, 1);
+    process.exit(1);
   });
 });
 
