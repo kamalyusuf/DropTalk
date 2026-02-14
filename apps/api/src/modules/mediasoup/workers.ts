@@ -1,7 +1,6 @@
 import * as mediasoup from "mediasoup";
 import os from "node:os";
 import { logger } from "../../lib/logger.js";
-import { env } from "../../lib/env.js";
 import type { Worker } from "mediasoup/node/lib/types.js";
 
 class MediasoupWorkers {
@@ -30,9 +29,7 @@ class MediasoupWorkers {
           "simulcast",
           "svc",
           "sctp"
-        ],
-        rtcMinPort: env.MEDIASOUP_MIN_PORT,
-        rtcMaxPort: env.MEDIASOUP_MAX_PORT
+        ]
       });
 
       worker.on("died", (error) => {

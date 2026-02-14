@@ -2,7 +2,7 @@ import { useUserStore } from "../../store/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export const Authenticated = ({ children }: { children: JSX.Element }) => {
+export const Authenticated = ({ children }: { children: React.ReactNode }) => {
   const user = useUserStore((state) => state.user);
   const { replace } = useRouter();
 
@@ -16,7 +16,11 @@ export const Authenticated = ({ children }: { children: JSX.Element }) => {
   return null;
 };
 
-export const Unauthenticated = ({ children }: { children: JSX.Element }) => {
+export const Unauthenticated = ({
+  children
+}: {
+  children: React.ReactNode;
+}) => {
   const user = useUserStore((state) => state.user);
   const { replace, query } = useRouter();
 

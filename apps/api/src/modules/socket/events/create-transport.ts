@@ -9,7 +9,26 @@ export const handler: CallbackEvent<"create transport"> = {
     const room = MediasoupRoom.findbyid(room_id);
 
     const transport = await room.router.createWebRtcTransport<AppData>({
-      listenIps: [{ ip: env.LISTEN_IP, announcedIp: env.ANNOUNCED_IP }],
+      listenInfos: [
+        {
+          protocol: "udp",
+          ip: env.LISTEN_IP,
+          announcedAddress: env.ANNOUNCED_IP,
+          portRange: {
+            min: env.MEDIASOUP_MIN_PORT,
+            max: env.MEDIASOUP_MAX_PORT
+          }
+        },
+        {
+          protocol: "tcp",
+          ip: env.LISTEN_IP,
+          announcedAddress: env.ANNOUNCED_IP,
+          portRange: {
+            min: env.MEDIASOUP_MIN_PORT,
+            max: env.MEDIASOUP_MAX_PORT
+          }
+        }
+      ],
       initialAvailableOutgoingBitrate: 1000000,
       maxSctpMessageSize: 262144,
       enableUdp: true,

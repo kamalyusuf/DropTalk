@@ -5,34 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c535b51-9369-43bf-8c66-136a6236b4bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/web/components/call-to-action.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/features.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/hero.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/how-it-works.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__.github__/workflows/deploy-api.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__.github__/workflows/deploy-web.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/components/alert.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/alert.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/app-sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/components/container.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/components/icon.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/components/mobile-header.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/components/navbar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/create-transport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/events/create-transport.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/web/hooks/use-socket-query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/hooks/use-socket-query.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/room/room-login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/room-login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/room/rooms-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/rooms-page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/room/rooms.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/rooms.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/modules/auth/authenticate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/auth/authenticate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/web/modules/room/use-room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/use-room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/socket/socket-provider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/socket/socket-provider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/user/settings-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/user/settings-page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/pages/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/app/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/pages/rooms/[id].tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/pages/rooms/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/utils/username.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/utils/display-name.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,30 +56,30 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="useFileNestingRules" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;v3&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kamal/Workspace/uhhhh&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Kamal\\Workspace\\uhhhh\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Confirmation&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Kamal\\Workspace\\uhhhh\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "v3",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/Kamal/Workspace/uhhhh",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Kamal\\Workspace\\uhhhh\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "terminal",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Users\\Kamal\\Workspace\\uhhhh\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -123,6 +101,9 @@
       <workItem from="1771011797811" duration="2935000" />
       <workItem from="1771021176517" duration="10468000" />
       <workItem from="1771046725515" duration="1615000" />
+      <workItem from="1771080869944" duration="167000" />
+      <workItem from="1771086261722" duration="3720000" />
+      <workItem from="1771100408361" duration="1146000" />
     </task>
     <servers />
   </component>

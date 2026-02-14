@@ -24,6 +24,8 @@ type Options<T extends ServerEvent> = Omit<
   "queryKey" | "queryFn"
 >;
 
+const isserver = typeof window === "undefined";
+
 export const useSocketQuery = <T extends ServerEvent>(
   ...args: Params<T> extends never
     ? [key: T | [T, ...ExtraQueryKeys], options?: Options<T>]
@@ -57,10 +59,14 @@ export const useSocketQuery = <T extends ServerEvent>(
       });
     },
     enabled:
-      typeof window !== "undefined" &&
-      state === "connected" &&
-      (typeof options?.enabled === "function"
-        ? options.enabled
-        : (options?.enabled ?? true))
+      typeof options?.enabled === "function"
+        ? (query) => {
+            return (
+              !isserver &&
+              state === "connected" &&
+              (options.enabled as (query: object) => boolean)(query)
+            );
+          }
+        : !isserver && state === "connected" && (options?.enabled ?? true)
   });
 };
