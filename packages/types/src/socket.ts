@@ -80,6 +80,8 @@ export interface ServerToClientEvents<
 
   "active speaker": (t: { peer_id: string; speaking: boolean }) => void;
 
+  "peer updated": (t: { peer: User }) => void;
+
   "delete room": (t: { room_id: string }) => void;
 
   "consumer consumed": () => void;

@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3c535b51-9369-43bf-8c66-136a6236b4bc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/create-transport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/events/create-transport.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/hooks/use-socket-query.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/hooks/use-socket-query.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/auth/authenticate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/auth/authenticate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/modules/room/use-room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/use-room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/update-display-name.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/events/update-display-name.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/modules/socket/socket-handler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/socket/socket-handler.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/types/src/socket.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/types/src/socket.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,7 @@
       <workItem from="1771046725515" duration="1615000" />
       <workItem from="1771080869944" duration="167000" />
       <workItem from="1771086261722" duration="3720000" />
-      <workItem from="1771100408361" duration="1146000" />
+      <workItem from="1771100408361" duration="3183000" />
     </task>
     <servers />
   </component>

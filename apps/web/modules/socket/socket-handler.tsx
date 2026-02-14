@@ -120,6 +120,15 @@ export const SocketHandler = () => {
       setactivespeaker(peer_id, speaking);
     });
 
+    socket.on("peer updated", ({ peer }) => {
+      updatequery("rooms", (draft) => {
+        draft.rooms.forEach((room) => {
+          if (room.creator._id === peer._id)
+            room.creator.display_name = peer.display_name;
+        });
+      });
+    });
+
     socket.on("delete room", ({ room_id }) => {
       updatequery("rooms", (draft) => {
         const index = draft.rooms.findIndex((room) => room._id === room_id);
