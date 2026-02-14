@@ -99,12 +99,7 @@ const App = ({ Component: C, pageProps }: AppProps) => {
         )}
       </MantineProvider>
 
-      {false && (
-        <ReactQueryDevtools
-          initialIsOpen={false}
-          buttonPosition="bottom-left"
-        />
-      )}
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
 };

@@ -46,9 +46,9 @@ export const useSocketQuery = <T extends ServerEvent>(
     ...(options ?? {}),
     queryKey: Array.isArray(key) ? key : [key],
     queryFn: () => {
-      if (!socket) throw new Error("socket not initialized");
+      if (!socket) throw new Error("Socket is not initialized");
 
-      if (!socket.connected) throw new Error("socket not connected");
+      if (!socket.connected) throw new Error("Socket is not connected");
 
       return request({
         socket,

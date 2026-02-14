@@ -19,6 +19,7 @@ import { useSettingsStore } from "../../store/settings";
 import { request } from "../../utils/request";
 import { useShallow } from "../../hooks/use-shallow";
 import type { PageComponent } from "../../types";
+import { validate_display_name } from "../../utils/display-name";
 
 export const SettingsPage: PageComponent = () => {
   const { update, user } = useUserStore(
@@ -41,6 +42,8 @@ export const SettingsPage: PageComponent = () => {
   const onsubmit = async () => {
     if (!socket) return toast.error("Web server is down");
 
+    if (!validate_display_name(name)) return;
+
     const res = await request({
       socket,
       event: "update display name",
@@ -48,6 +51,7 @@ export const SettingsPage: PageComponent = () => {
     });
 
     if (!res.ok) return;
+
     update(res.peer.display_name, remember);
     toast.success("Saved");
   };

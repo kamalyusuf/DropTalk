@@ -60,22 +60,6 @@ export const RoomsPage: PageComponent = () => {
         >
           <Rooms />
         </Stack>
-
-        {/* <Box
-          p="lg"
-          style={{
-            borderRadius: "var(--radius-card)",
-            backgroundColor: "var(--color-elevated)",
-            border: "1px solid var(--color-shade)",
-            boxShadow: "var(--shadow-card)",
-            minHeight: 320,
-            maxHeight: "calc(100vh - 220px)",
-            display: "flex",
-            flexDirection: "column"
-          }}
-        >
-          <Rooms />
-        </Box> */}
       </Box>
 
       <CreateRoomModal opened={opened} setopened={setopened} />

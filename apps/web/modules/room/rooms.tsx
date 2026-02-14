@@ -19,7 +19,7 @@ export const Rooms = () => {
     return (
       <Alert
         type="error"
-        message="web server is down"
+        message="Web server is down"
         style={{ marginTop: 20 }}
       />
     );
@@ -35,7 +35,7 @@ export const Rooms = () => {
     return (
       <Alert
         type="error"
-        message="failed to fetch rooms"
+        message="Failed to fetch rooms"
         style={{ marginTop: 20 }}
       />
     );
@@ -56,30 +56,6 @@ export const Rooms = () => {
         )}
       </>
     );
-
-  // if (data)
-  //   return (
-  //     <ScrollArea
-  //       type="auto"
-  //       offsetScrollbars
-  //       // style={{ flex: 1, minHeight: 0 }}
-  //       styles={{
-  //         // root: { flex: 1, minHeight: 0 },
-  //         // viewport: { minHeight: 0 },
-  //         thumb: { backgroundColor: "var(--color-primary)" }
-  //       }}
-  //     >
-  //       <Stack gap="sm">
-  //         {data.rooms.length === 0 ? (
-  //           <Box py="xl" ta="center">
-  //             <Text c="dimmed">No rooms yet. Create one to get started.</Text>
-  //           </Box>
-  //         ) : (
-  //           data.rooms.map((room) => <RoomCard key={room._id} room={room} />)
-  //         )}
-  //       </Stack>
-  //     </ScrollArea>
-  //   );
 
   return null;
 };

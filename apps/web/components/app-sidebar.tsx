@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 import { Box, Stack, Text, Group, ThemeIcon } from "@mantine/core";
 import { IconSettings, IconUsers } from "@tabler/icons-react";
 import { useMediaQuery } from "@mantine/hooks";
-
 import { useUserStore } from "../store/user";
 import { useRoomStore } from "../store/room";
 
-const navItems = [
+const navitems = [
   { href: "/app/rooms", label: "Rooms", icon: IconUsers },
   { href: "/app/settings", label: "Settings", icon: IconSettings }
 ];
@@ -16,8 +15,8 @@ export function AppSidebar() {
   const router = useRouter();
   const pathname = router.pathname;
   const user = useUserStore((state) => state.user);
-  const roomState = useRoomStore((state) => state.state);
-  const inRoom = roomState === "connected";
+  const roomstate = useRoomStore((state) => state.state);
+  const inroom = roomstate === "connected";
 
   const matches = useMediaQuery("(max-width: 768px)");
 
@@ -45,7 +44,7 @@ export function AppSidebar() {
           style={{
             letterSpacing: "-0.02em",
             textDecoration: "none",
-            pointerEvents: inRoom ? "none" : undefined
+            pointerEvents: inroom ? "none" : undefined
           }}
         >
           uhhhh
@@ -53,14 +52,7 @@ export function AppSidebar() {
       </Box>
 
       <Stack gap={4} p="sm" style={{ flex: 1 }}>
-        {navItems.map(({ href, label, icon: Icon }) => {
-          // const isRoomDetail =
-          //   href === "/app/rooms" &&
-          //   pathname.startsWith("/app/rooms/") &&
-          //   pathname !== "/app/rooms";
-
-          // const active = pathname === href || isRoomDetail;
-
+        {navitems.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
 
           return (
@@ -69,8 +61,7 @@ export function AppSidebar() {
               component={Link}
               href={href}
               style={{
-                pointerEvents: inRoom ? "none" : undefined,
-                // opacity: inRoom ? 0.6 : 1,
+                pointerEvents: inroom ? "none" : undefined,
                 borderRadius: "var(--radius-app)",
                 padding: "10px 12px",
                 textDecoration: "none",
@@ -79,7 +70,7 @@ export function AppSidebar() {
                   : "transparent"
               }}
               onMouseEnter={(e) => {
-                if (!inRoom && !active) {
+                if (!inroom && !active) {
                   e.currentTarget.style.backgroundColor = "var(--color-shade)";
                 }
               }}
@@ -108,36 +99,6 @@ export function AppSidebar() {
             </Box>
           );
         })}
-
-        {/* <Box style={{ flex: 1 }} />
-
-        <Box
-          component="a"
-          href="https://github.com/kamalyusuf/uhhhh"
-          target="_blank"
-          style={{
-            pointerEvents: inRoom ? "none" : undefined,
-            borderRadius: "var(--radius-app)",
-            padding: "10px 12px",
-            textDecoration: "none"
-          }}
-          onMouseEnter={(e) => {
-            if (!inRoom)
-              e.currentTarget.style.backgroundColor = "var(--color-shade)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "transparent";
-          }}
-        >
-          <Group gap="sm">
-            <ThemeIcon size="md" radius="md" variant="subtle" color="gray">
-              <IconBrandGithub size={18} />
-            </ThemeIcon>
-            <Text size="sm" fw={500} c="dimmed">
-              GitHub
-            </Text>
-          </Group>
-        </Box> */}
       </Stack>
 
       {user && (
@@ -145,25 +106,16 @@ export function AppSidebar() {
           <Box
             component="button"
             type="button"
-            onClick={() => !inRoom && router.push("/app/settings")}
+            onClick={() => !inroom && router.push("/app/settings")}
             style={{
               width: "100%",
               border: "none",
               background: "none",
-              // cursor: inRoom ? "default" : "pointer",
               borderRadius: "var(--radius-app)",
               padding: "10px 12px",
-              // opacity: inRoom ? 0.6 : 1,
               textAlign: "left",
-              pointerEvents: inRoom ? "none" : undefined
+              pointerEvents: inroom ? "none" : undefined
             }}
-            // onMouseEnter={(e) => {
-            //   if (!inRoom)
-            //     e.currentTarget.style.backgroundColor = "var(--color-shade)";
-            // }}
-            // onMouseLeave={(e) => {
-            //   e.currentTarget.style.backgroundColor = "transparent";
-            // }}
           >
             <Group gap="sm">
               <ThemeIcon size="md" radius="xl" color="indigo" variant="light">

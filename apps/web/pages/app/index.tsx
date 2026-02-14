@@ -12,14 +12,16 @@ import {
 import { IconUserCircle } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useUserStore } from "../../store/user";
-import { toast } from "react-toastify";
 import { Layout } from "../../components/layout";
-import { username } from "../../utils/username";
+import {
+  generate_display_name,
+  validate_display_name
+} from "../../utils/display-name";
 import type { PageComponent } from "../../types";
 
 const AppEntryPage: PageComponent = () => {
   const router = useRouter();
-  const [name, setname] = useState(username());
+  const [name, setname] = useState(generate_display_name());
   const [remember, setremember] = useState(false);
   const load = useUserStore((state) => state.load);
 
@@ -70,14 +72,9 @@ const AppEntryPage: PageComponent = () => {
               onSubmit={(event) => {
                 event.preventDefault();
                 const displayname = name.trim();
-                if (displayname.length < 3) {
-                  toast.error("Name must be at least 3 characters");
-                  return;
-                }
-                if (!/^[a-z0-9]+$/i.test(displayname)) {
-                  toast.error("Only letters and numbers allowed");
-                  return;
-                }
+
+                if (!validate_display_name(displayname)) return;
+
                 load(displayname, remember);
                 router.push("/app/rooms");
               }}

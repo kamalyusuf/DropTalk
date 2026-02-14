@@ -204,7 +204,7 @@ export const useRoom = (room: Room) => {
       if (!device.canProduce("audio")) {
         setroomstore({
           state: "connected",
-          warn_message: "cannot consume your audio due to some unknown error"
+          warn_message: "Cannot consume your audio due to some unknown error"
         });
 
         toast.info("connected");
