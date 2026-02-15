@@ -26,7 +26,7 @@ const AppEntryPage: PageComponent = () => {
   const load = useUserStore((state) => state.load);
 
   return (
-    <Layout title="uhhhh — enter">
+    <Layout title="DropTalk">
       <Box
         style={{
           maxWidth: 420,

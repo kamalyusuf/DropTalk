@@ -3,7 +3,7 @@ FROM node:20-slim AS builder
 WORKDIR /app
 RUN corepack enable
 COPY . .
-RUN yarn dlx turbo prune --scope=api --docker
+RUN yarn dlx turbo prune --scope=server --docker
 
 FROM node:20-slim AS installer
 WORKDIR /app
@@ -24,15 +24,15 @@ RUN yarn install --frozen-lockfile
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
-RUN yarn api:build
+RUN yarn server:build
 
 FROM node:20-slim AS runner
 WORKDIR /app
 
 # RUN corepack enable
 
-COPY --from=installer /app/apps/api/package.json .
-COPY --from=installer /app/apps/api/dist ./dist
+COPY --from=installer /app/apps/server/package.json .
+COPY --from=installer /app/apps/server/dist ./dist
 COPY --from=installer /app/node_modules ./node_modules
 
 CMD ["node", "--import", "./dist/instrument.js", "./dist/index.js"]

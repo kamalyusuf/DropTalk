@@ -80,9 +80,7 @@ const App = ({ Component: C, pageProps }: AppProps) => {
                 <Component {...pageProps} />
               )}
             </>
-            {process.env.NODE_ENV === "production" && (
-              <Analytics mode="production" />
-            )}
+            {process.env.NODE_ENV === "production" && <Analytics />}
             <ToastContainer
               position="top-right"
               autoClose={3000}

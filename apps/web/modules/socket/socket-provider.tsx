@@ -98,7 +98,10 @@ export const SocketProvider = ({ children }: Props) => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("disconnect", () => setsocket(null));
+    socket.on("disconnect", () => {
+      setsocket(null);
+      setstate("disconnected");
+    });
 
     return () => {
       socket.disconnect();

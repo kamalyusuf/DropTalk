@@ -14,7 +14,7 @@ export const RoomsPage: PageComponent = () => {
   if (!mounted) return null;
 
   return (
-    <Layout title="Rooms">
+    <Layout title="Rooms | DropTalk">
       <Box style={{ maxWidth: 900, width: "100%", margin: "0 auto" }}>
         <Group
           justify="space-between"

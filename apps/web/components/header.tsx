@@ -1,5 +1,6 @@
-import { Box, Button, Container, Group, Text } from "@mantine/core";
+import { Box, Button, Container, Group, Text, ThemeIcon } from "@mantine/core";
 import Link from "next/link";
+import { IconMicrophone } from "@tabler/icons-react";
 
 export const Header = () => {
   return (
@@ -16,16 +17,16 @@ export const Header = () => {
     >
       <Container size="lg">
         <Group justify="space-between" align="center">
-          <Text
-            component={Link}
-            href="/"
-            fw={700}
-            size="lg"
-            c="white"
-            style={{ letterSpacing: "-0.02em", textDecoration: "none" }}
-          >
-            uhhhh
-          </Text>
+          <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <Group gap="xs">
+              <ThemeIcon variant="transparent">
+                <IconMicrophone />
+              </ThemeIcon>
+              <Text size="xl" fw={700}>
+                DropTalk
+              </Text>
+            </Group>
+          </Link>
           <Button
             component={Link}
             href="/app"

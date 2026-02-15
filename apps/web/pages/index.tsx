@@ -11,7 +11,7 @@ const LandingPage = () => {
   return (
     <>
       <Head>
-        <title>uhhhh — Voice rooms, drop in and talk</title>
+        <title>DropTalk — Voice rooms, drop in and talk</title>
         <meta
           name="description"
           content="Create voice rooms in seconds. No account required. Share a link, talk with others in real time."

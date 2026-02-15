@@ -9,12 +9,12 @@ export const Footer = () => {
         <Container size="lg">
           <Group justify="space-between" align="center">
             <Text size="sm" c="dimmed">
-              uhhhh — voice rooms, drop in and talk
+              DropTalk — voice rooms, drop in and talk
             </Text>
             <Group gap="xs">
               <Button
                 component="a"
-                href="https://github.com/kamalyusuf/uhhhh"
+                href="https://github.com/kamalyusuf/DropTalk"
                 target="_blank"
                 variant="subtle"
                 color="gray"

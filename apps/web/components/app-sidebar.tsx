@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Box, Stack, Text, Group, ThemeIcon } from "@mantine/core";
-import { IconSettings, IconUsers } from "@tabler/icons-react";
+import { IconMicrophone, IconSettings, IconUsers } from "@tabler/icons-react";
 import { useMediaQuery } from "@mantine/hooks";
 import { useUserStore } from "../store/user";
 import { useRoomStore } from "../store/room";
@@ -35,20 +35,23 @@ export function AppSidebar() {
       }}
     >
       <Box p="md" style={{ borderBottom: "1px solid var(--color-shade)" }}>
-        <Text
-          component={Link}
-          href="/app"
-          fw={700}
-          size="lg"
-          c="white"
+        <Link
+          href="/app/rooms"
           style={{
-            letterSpacing: "-0.02em",
             textDecoration: "none",
+            color: "inherit",
             pointerEvents: inroom ? "none" : undefined
           }}
         >
-          uhhhh
-        </Text>
+          <Group gap="xs">
+            <ThemeIcon variant="transparent">
+              <IconMicrophone />
+            </ThemeIcon>
+            <Text size="xl" fw={700}>
+              DropTalk
+            </Text>
+          </Group>
+        </Link>
       </Box>
 
       <Stack gap={4} p="sm" style={{ flex: 1 }}>
@@ -101,7 +104,7 @@ export function AppSidebar() {
         })}
       </Stack>
 
-      {user && (
+      {!!user && (
         <Box p="md" style={{ borderTop: "1px solid var(--color-shade)" }}>
           <Box
             component="button"

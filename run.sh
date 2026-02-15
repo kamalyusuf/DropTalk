@@ -9,7 +9,7 @@ export WEB_URL=${WEB_URL:="http://localhost:3000"}
 export ANNOUNCED_IP=${ANNOUNCED_IP:="127.0.0.1"}
 
 docker run \
-        --name uhhhh-api \
+        --name droptalk-server \
         -p "${PORT}":"${PORT}"/tcp \
         -p "${MEDIASOUP_MIN_PORT}"-"${MEDIASOUP_MAX_PORT}":"${MEDIASOUP_MIN_PORT}"-"${MEDIASOUP_MAX_PORT}"/udp \
         -p "${MEDIASOUP_MIN_PORT}"-"${MEDIASOUP_MAX_PORT}":"${MEDIASOUP_MIN_PORT}"-"${MEDIASOUP_MAX_PORT}"/tcp \
@@ -22,4 +22,4 @@ docker run \
         -e WEB_URL \
         -it \
         --rm \
-        kamalyb/uhhhh-api
+        kamalyb/droptalk-server

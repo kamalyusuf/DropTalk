@@ -35,7 +35,7 @@ export const Features = () => {
             </Text>
             <Text size="sm" c="dimmed" mt="xs" style={{ lineHeight: 1.55 }}>
               Talk with others with low-latency audio. Mute and unmute anytime.
-              No video, no clutter—just voice.
+              No video, no clutter, just voice.
             </Text>
           </Box>
           <Box
@@ -55,7 +55,7 @@ export const Features = () => {
             </Text>
             <Text size="sm" c="dimmed" mt="xs" style={{ lineHeight: 1.55 }}>
               Create a room with a name and optional description. Share the
-              link—anyone with it can join. Public or password-protected.
+              link, anyone with it can join. Public or password-protected.
             </Text>
           </Box>
           <Box

@@ -5,36 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c535b51-9369-43bf-8c66-136a6236b4bc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/api/src/lib/sentry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uhhhh.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/instrument.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/instrument.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/lib/logger.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/lib/logger.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/peer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/peer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/room.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/room/room.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/room/room.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/errors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/errors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/join.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/events/join.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/room-login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/events/room-login.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/socket/utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/utils/schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/utils/schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/tsup.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/mantine/styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/mantine/styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/.madgerc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/app.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/instrument.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/lib/env.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/lib/logger.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/lib/sentry.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/peer.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/room.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/mediasoup/workers.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/room/room.model.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/room/room.route.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/errors.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/active-speaker.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/chat-message.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/close-producer.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/connect-transport.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/consumer-consumed.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/create-room.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/create-transport.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/disconnect.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/join.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/leave.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/pause-producer.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/produce.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/resume-producer.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/room-login.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/rooms.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/rtp-capabilities.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/events/update-display-name.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/io.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/socket-event-error.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/socket/utils.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/utils/schema.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/utils/shutdown.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/utils/start.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/app-sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/components/features.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/features.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/components/footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/components/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/components/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/components/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/modules/room/room-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/room-page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/modules/room/rooms-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/room/rooms-page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/web/modules/user/settings-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/modules/user/settings-page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/next-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/next-env.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/web/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/store/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/store/user.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/web/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/pages/_document.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/_document.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/pages/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/types/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +125,7 @@
     &quot;git-widget-placeholder&quot;: &quot;v3&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kamal/Workspace/uhhhh&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kamal/Workspace/DropTalk&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
@@ -103,7 +135,7 @@
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Kamal\\Workspace\\uhhhh\\node_modules\\prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Kamal\\Workspace\\uhhhh\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2025.2.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -132,6 +164,12 @@
       <workItem from="1771086261722" duration="3720000" />
       <workItem from="1771100408361" duration="6814000" />
       <workItem from="1771108879818" duration="956000" />
+      <workItem from="1771110277408" duration="225000" />
+      <workItem from="1771111703450" duration="838000" />
+      <workItem from="1771112587764" duration="417000" />
+      <workItem from="1771113021788" duration="892000" />
+      <workItem from="1771161302955" duration="417000" />
+      <workItem from="1771169251826" duration="693000" />
     </task>
     <servers />
   </component>

@@ -32,7 +32,7 @@ export const Hero = () => {
             mx="auto"
             style={{ lineHeight: 1.65 }}
           >
-            Create a room in seconds. Share a link. No sign-up required—just
+            Create a room in seconds. Share a link. No sign-up required, just
             pick a name and go. Real-time voice with optional chat, so you can
             run standups, hang out, or brainstorm without the friction.
           </Text>

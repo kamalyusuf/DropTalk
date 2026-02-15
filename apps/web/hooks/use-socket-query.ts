@@ -35,7 +35,7 @@ export const useSocketQuery = <T extends ServerEvent>(
         options?: Options<T>
       ]
 ): UseQueryResult<SocketRequestResponse<T>, SocketEventError> => {
-  const { socket, state } = useSocket();
+  const { socket } = useSocket();
 
   const key = args[0];
   const payload =
@@ -63,10 +63,10 @@ export const useSocketQuery = <T extends ServerEvent>(
         ? (query) => {
             return (
               !isserver &&
-              state === "connected" &&
+              !!socket?.connected &&
               (options.enabled as (query: object) => boolean)(query)
             );
           }
-        : !isserver && state === "connected" && (options?.enabled ?? true)
+        : !isserver && !!socket?.connected && (options?.enabled ?? true)
   });
 };

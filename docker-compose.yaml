@@ -1,6 +1,6 @@
 services:
   api:
-    image: kamalyb/uhhhh-api
+    image: kamalyb/droptalk-server
     restart: unless-stopped
     ports:
       - "2300:2300/tcp"

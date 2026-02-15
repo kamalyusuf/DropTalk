@@ -59,7 +59,7 @@ export const SettingsPage: PageComponent = () => {
   };
 
   return (
-    <Layout title={`${user.display_name} — Settings`}>
+    <Layout title={"Settings | DropTalk"}>
       <Box
         style={{
           maxWidth: 560,

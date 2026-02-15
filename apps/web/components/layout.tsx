@@ -75,7 +75,7 @@ export const Layout = ({ children, title }: PropsWithChildren<Props>) => {
                   color="white"
                 />
                 <Box style={{ fontWeight: 700, fontSize: 18, color: "white" }}>
-                  uhhhh
+                  DropTalk
                 </Box>
               </Group>
             </Box>

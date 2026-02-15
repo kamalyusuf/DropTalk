@@ -98,7 +98,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
 
   if (roomstate === "connected")
     return (
-      <Layout title={room.name}>
+      <Layout title={`${room.name} | DropTalk`}>
         <Box
           style={{
             display: "flex",

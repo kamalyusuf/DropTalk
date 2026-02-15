@@ -1,4 +1,4 @@
-# Uhhhh
+# DropTalk
 
 ## App Demo
 
@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/d01e5943-916b-4e13-9262-38f845a6f5f5
 
 The project includes:
 
-- `apps/api`: Express Backend API.
+- `apps/server`: Express server.
 - `apps/web`: Next Frontend.
 
 ## Features
@@ -18,7 +18,7 @@ The project includes:
 
 ## Tech Stack
 
-### Backend
+### Server
 
 - [Express](https://github.com/expressjs/express)
 - [Socket.io](https://github.com/socketio/socket.io)
@@ -39,15 +39,15 @@ The project includes:
 - Node.js installed (supports Corepack).
 - Yarn (enabled through Corepack).
 - Follow [mediasoup installation steps](https://mediasoup.org/documentation/v3/mediasoup/installation/) for required dependencies (e.g., Python).
-- Docker (optional for API).
+- Docker (optional for server).
 
 ## Running Locally
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/kamalyusuf/uhhhh.git
-cd uhhhh
+git clone https://github.com/kamalyusuf/DropTalk.git
+cd DropTalk
 ```
 
 ### 2. Enable Corepack
@@ -67,7 +67,7 @@ yarn install
 #### 2. Set Environment Variables (optional)
 
 - Update values as needed:
-  - **API**: `NODE_ENV`, `PORT`, `WEB_URL`, `LISTEN_IP`, `ANNOUNCED_IP`, `MEDIASOUP_MIN_PORT`, `MEDIASOUP_MAX_PORT`.
+  - **Server**: `NODE_ENV`, `PORT`, `WEB_URL`, `LISTEN_IP`, `ANNOUNCED_IP`, `MEDIASOUP_MIN_PORT`, `MEDIASOUP_MAX_PORT`.
     - Defaults: `NODE_ENV=development`, `PORT=2300`, `WEB_URL=http://localhost:3000`, `LISTEN_IP=0.0.0.0`, `ANNOUNCED_IP=127.0.0.1`, `MEDIASOUP_MIN_PORT=2000`, `MEDIASOUP_MAX_PORT=2020`.
   - **Web**: `NEXT_PUBLIC_API_URL`.
     - Defaults: `NEXT_PUBLIC_API_URL=http://localhost:2300`.
@@ -78,20 +78,20 @@ yarn install
 yarn dev
 ```
 
-- API runs on `http://localhost:2300`.
+- Server runs on `http://localhost:2300`.
 - Web runs on `http://localhost:3000`.
 
-### Option 2: Dockerized API
+### Option 2: Dockerized server
 
-#### 1. Run the API with Docker
+#### 1. Run the server with Docker
 
-Run the `run.sh` script to start the API (port `2300` by default and on production mode):
+Run the `run.sh` script to start the server (port `2300` by default and on production mode):
 
 ```bash
 bash run.sh
 ```
 
-You can also use the provided `docker-compose.yaml` file to run the API. Simply execute:
+You can also use the provided `docker-compose.yaml` file to run the server. Simply execute:
 
 ```bash
 docker-compose up -d
