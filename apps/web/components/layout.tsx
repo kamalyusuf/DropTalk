@@ -11,7 +11,9 @@ interface Props {
 
 export const Layout = ({ children, title }: PropsWithChildren<Props>) => {
   const [opened, { toggle, close }] = useDisclosure(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 768px)", true, {
+    getInitialValueInEffect: false
+  });
 
   return (
     <>

@@ -16,7 +16,7 @@ export const styles: MantineThemeComponents = {
           }
         },
         required: {
-          color: "red"
+          color: theme.colors.red[6]
         }
       };
     }

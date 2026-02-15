@@ -52,7 +52,8 @@ export const PeerBadge = ({
         transition: "border-color 0.15s ease, background-color 0.15s ease"
       }}
       onMouseEnter={(e) => {
-        if (!me) e.currentTarget.style.backgroundColor = "var(--color-elevated)";
+        if (!me)
+          e.currentTarget.style.backgroundColor = "var(--color-elevated)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.backgroundColor = "var(--color-surface)";
@@ -73,7 +74,13 @@ export const PeerBadge = ({
             </Text>
           )}
         </ThemeIcon>
-        <Text size="sm" fw={500} c="white" truncate style={{ width: "100%", textAlign: "center" }}>
+        <Text
+          size="sm"
+          fw={500}
+          c="white"
+          truncate
+          style={{ width: "100%", textAlign: "center" }}
+        >
           {me ? "You" : peer.display_name}
         </Text>
         {speaker && (
@@ -88,7 +95,9 @@ export const PeerBadge = ({
   return (
     <>
       {card}
-      {me ? null : <Audio consumer={consumer!} volume={volume ?? 100} />}
+      {!me && consumer ? (
+        <Audio consumer={consumer} volume={volume ?? 100} />
+      ) : null}
       <Modal
         opened={opened}
         onClose={close}
@@ -99,12 +108,18 @@ export const PeerBadge = ({
         }
         radius="var(--radius-card)"
         styles={{
-          content: { backgroundColor: "var(--color-elevated)", border: "1px solid var(--color-shade)" },
-          header: { backgroundColor: "var(--color-elevated)", borderBottom: "1px solid var(--color-shade)" }
+          content: {
+            backgroundColor: "var(--color-elevated)",
+            border: "1px solid var(--color-shade)"
+          },
+          header: {
+            backgroundColor: "var(--color-elevated)",
+            borderBottom: "1px solid var(--color-shade)"
+          }
         }}
       >
         <Slider
-          value={volume}
+          value={volume ?? 100}
           onChange={(value) => setvolume(peer._id, value)}
           label={(v) => `${v}%`}
         />

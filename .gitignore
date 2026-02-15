@@ -45,3 +45,5 @@ ignore.txt
 nginx.conf
 todo
 *.stackdump
+.idea
+.vscode

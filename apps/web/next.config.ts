@@ -7,7 +7,8 @@ const config: NextConfig = {
   logging: false,
   experimental: {
     optimizePackageImports: ["@mantine/core", "@mantine/hooks"]
-  }
+  },
+  typedRoutes: true
 };
 
 export default config;

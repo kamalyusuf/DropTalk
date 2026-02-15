@@ -25,11 +25,9 @@ export const RoomCard = ({ room }: Props) => {
         transition: "border-color 0.15s ease, background-color 0.15s ease"
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "var(--color-shade)";
         e.currentTarget.style.backgroundColor = "var(--color-elevated)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--color-shade)";
         e.currentTarget.style.backgroundColor = "var(--color-surface)";
       }}
     >

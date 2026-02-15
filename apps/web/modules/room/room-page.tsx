@@ -127,6 +127,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
                     color="indigo"
                     size="lg"
                     radius="xl"
+                    aria-label="Open chat"
                     onClick={open}
                     style={{ boxShadow: "var(--shadow-card)" }}
                   >

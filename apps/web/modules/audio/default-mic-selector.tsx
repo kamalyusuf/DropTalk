@@ -28,9 +28,9 @@ export const DefaultMicSelector = () => {
 
       setmics(devices);
     } catch (e) {
-      const error = e as Error;
-
-      toast.error(error.message);
+      toast.error(
+        e instanceof Error ? e.message : "Failed to retrieve devices."
+      );
     } finally {
       setenumerating(false);
     }

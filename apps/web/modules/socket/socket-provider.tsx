@@ -101,6 +101,7 @@ export const SocketProvider = ({ children }: Props) => {
     socket.on("disconnect", () => {
       setsocket(null);
       setstate("disconnected");
+      called.current = false;
     });
 
     return () => {

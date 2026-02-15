@@ -9,7 +9,7 @@ import { useRoomStore } from "../store/room";
 const navitems = [
   { href: "/app/rooms", label: "Rooms", icon: IconUsers },
   { href: "/app/settings", label: "Settings", icon: IconSettings }
-];
+] as const;
 
 export function AppSidebar() {
   const router = useRouter();
