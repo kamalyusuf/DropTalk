@@ -5,7 +5,9 @@ import {
   Text,
   Checkbox,
   Stack,
-  PasswordInput
+  PasswordInput,
+  Box,
+  Title
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useSocket } from "../socket/socket-provider";
@@ -48,13 +50,12 @@ export const CreateRoomForm = ({ oncancel }: Props) => {
   const onsubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!socket) return toast.error("web server is down");
+    if (!socket) return toast.error("Web server is down");
 
     setcreating(true);
 
     try {
       if (!(await micenabled())) return;
-
       const { room } = await request({
         socket,
         event: "create room",
@@ -65,16 +66,14 @@ export const CreateRoomForm = ({ oncancel }: Props) => {
           visibility: form.private ? "private" : "public"
         }
       });
-
       oncancel();
-
       update("rooms", (draft) => {
         draft.rooms.unshift(room);
       });
 
       await router[
         autojoin || room.visibility === "private" ? "push" : "prefetch"
-      ](`/rooms/${room._id}`);
+      ](`/app/rooms/${room._id}`);
     } catch (e) {
     } finally {
       setcreating(false);
@@ -83,61 +82,76 @@ export const CreateRoomForm = ({ oncancel }: Props) => {
 
   return (
     <form onSubmit={onsubmit}>
-      <Text size="xs" c="yellow" style={{ fontStyle: "italic" }}>
-        note: rooms are automatically deleted upon leaving
+      <Text c="dimmed" mb="lg">
+        Rooms are deleted when everyone leaves.
       </Text>
 
-      <Stack>
-        <TextInput
-          name="name"
-          label="name"
-          placeholder="name"
-          required
-          data-autofocus
-          autoComplete="off"
-          onChange={onchange}
-        />
+      <Stack gap="lg">
+        <Box>
+          <Stack gap="sm">
+            <TextInput
+              name="name"
+              label={<Text component="span">Room name</Text>}
+              placeholder="e.g. Team standup"
+              required
+              data-autofocus
+              autoComplete="off"
+              radius="md"
+              size="sm"
+              onChange={onchange}
+            />
+            <TextInput
+              name="description"
+              label={<Text component="span">Description (optional)</Text>}
+              placeholder="What's this room for?"
+              autoComplete="off"
+              radius="md"
+              size="sm"
+              onChange={onchange}
+            />
+          </Stack>
+        </Box>
 
-        <TextInput
-          name="description"
-          label="description"
-          placeholder="description"
-          autoComplete="off"
-          onChange={onchange}
-        />
+        <Box>
+          <Title order={4} mb="sm">
+            Privacy
+          </Title>
+          <Stack gap="xs">
+            <Checkbox
+              name="private"
+              label={<Text component="span">Private room</Text>}
+              size="sm"
+              onChange={onchange}
+            />
+            <Checkbox
+              name="require_password"
+              label={<Text component="span">Require password to join</Text>}
+              size="sm"
+              onChange={onchange}
+            />
+            {form.require_password && (
+              <PasswordInput
+                name="password"
+                placeholder="Password"
+                radius="md"
+                size="sm"
+                onChange={onchange}
+              />
+            )}
+          </Stack>
+        </Box>
 
-        <Checkbox
-          name="private"
-          label="private"
-          size="sm"
-          onChange={onchange}
-        />
-
-        <Checkbox
-          name="require_password"
-          label="password"
-          size="sm"
-          onChange={onchange}
-        />
-
-        {form.require_password && (
-          <PasswordInput
-            name="password"
-            placeholder="password"
-            onChange={onchange}
-          />
-        )}
-
-        <Group justify="right" grow style={{ marginTop: 10 }}>
+        <Group justify="flex-end" gap="sm" mt="md">
+          <Button variant="subtle" color="gray" radius="md" onClick={oncancel}>
+            Cancel
+          </Button>
           <Button
             type="submit"
             loading={creating}
             disabled={creating || !form.name.trim()}
+            radius="md"
           >
-            create
-          </Button>
-          <Button variant="default" onClick={oncancel}>
-            cancel
+            Create room
           </Button>
         </Group>
       </Stack>

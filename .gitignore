@@ -10,8 +10,6 @@ node_modules
 /coverage
 
 # next.js
-.idea
-.vscode
 .next
 dist
 dev
@@ -44,5 +42,8 @@ yarn-error.log*
 .vercel
 
 ignore.txt
-*.conf
-*.yml
+nginx.conf
+todo
+*.stackdump
+.idea
+.vscode

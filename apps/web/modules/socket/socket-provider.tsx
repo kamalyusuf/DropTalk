@@ -81,7 +81,7 @@ export const SocketProvider = ({ children }: Props) => {
 
         setstate("error");
 
-        toast.error("failed to establish connection. try reloading the page", {
+        toast.error("Failed to establish connection. Try reloading the page", {
           autoClose: false
         });
       });
@@ -98,7 +98,11 @@ export const SocketProvider = ({ children }: Props) => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("disconnect", () => setsocket(null));
+    socket.on("disconnect", () => {
+      setsocket(null);
+      setstate("disconnected");
+      called.current = false;
+    });
 
     return () => {
       socket.disconnect();

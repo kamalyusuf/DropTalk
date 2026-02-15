@@ -4,6 +4,7 @@ import {
   Paper,
   Stack,
   Text,
+  Container,
   useMantineTheme
 } from "@mantine/core";
 import { Layout } from "./layout";
@@ -15,7 +16,6 @@ import {
 } from "@tabler/icons-react";
 import { parseapierror } from "../utils/error";
 import { AxiosError } from "axios";
-import { Container } from "./container";
 import type { ApiError, EventError } from "types";
 import type { CSSProperties } from "react";
 
@@ -47,15 +47,15 @@ export const Alert = ({ type, message, wrap, style }: AlertProps) => {
   const color = colors[type];
 
   const component = (
-    <Container my={wrap ? 20 : undefined} style={style}>
+    <Container size="lg" my={wrap ? 20 : undefined} style={style}>
       <Center>
         <Paper
-          shadow="md"
-          p={20}
-          radius="md"
+          shadow="var(--shadow-card)"
+          p="lg"
+          radius="var(--radius-card)"
           style={{
-            backgroundColor: "var(--color-shade)",
-            borderColor: "var(--color-shade)"
+            backgroundColor: "var(--color-elevated)",
+            border: "1px solid var(--color-shade)"
           }}
         >
           <Group gap={20} align="center">

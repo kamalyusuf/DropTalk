@@ -4,7 +4,7 @@ import { shallow } from "zustand/vanilla/shallow";
 export const useShallow = <S, U>(
   selector: (state: S) => U
 ): ((state: S) => U) => {
-  const prev = useRef<U>();
+  const prev = useRef<U>(undefined);
 
   return (state) => {
     const next = selector(state);

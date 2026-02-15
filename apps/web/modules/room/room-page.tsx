@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Group, Loader, ActionIcon, Drawer, Badge } from "@mantine/core";
+import { Loader, ActionIcon, Drawer, Badge, Box } from "@mantine/core";
 import { useHotkeys, useMounted } from "@mantine/hooks";
 import type { Room } from "types";
 import { useRoom } from "./use-room";
 import { Layout } from "../../components/layout";
-import { Container } from "../../components/container";
 import { Chat } from "./chat/chat";
 import { RoomPanel } from "./room-panel";
 import type { PageComponent } from "../../types";
@@ -54,8 +53,8 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
   useEffect(() => {
     if (roomstate !== "closed") return;
 
-    toast.error("audio connection lost");
-    replace("/rooms");
+    toast.error("Audio connection lost");
+    replace("/app/rooms");
   }, [roomstate, replace]);
 
   useEffect(() => {
@@ -99,72 +98,74 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
 
   if (roomstate === "connected")
     return (
-      <Layout title={room.name}>
-        <Container style={{ width: "100%", height: "85%" }}>
-          <Group style={{ height: "100%" }} align="start">
-            <RoomPanel room={room} actions={{ leave, togglemute }} />
-            {matches ? (
-              <>
-                <ActionIcon
-                  variant="transparent"
-                  onClick={open}
-                  size={32}
-                  style={{
-                    position: "fixed",
-                    bottom: 16,
-                    right: 16
-                  }}
-                >
-                  <IconMessage
-                    stroke={1.5}
-                    style={{
-                      width: "100%",
-                      height: "100%"
-                    }}
-                  />
+      <Layout title={`${room.name} | DropTalk`}>
+        <Box
+          style={{
+            display: "flex",
+            gap: "var(--mantine-spacing-lg)",
+            alignItems: "stretch",
+            height: "calc(100vh - var(--mantine-spacing-xl) * 4)",
+            width: "100%",
+            overflow: "hidden"
+          }}
+        >
+          <RoomPanel room={room} actions={{ leave, togglemute }} />
+          {matches ? (
+            <>
+              <Box
+                style={{
+                  position: "fixed",
+                  bottom: 24,
+                  right: 24,
+                  zIndex: 50,
+                  display: "inline-block"
+                }}
+              >
+                <Box style={{ position: "relative", display: "inline-block" }}>
+                  <ActionIcon
+                    variant="light"
+                    color="indigo"
+                    size="lg"
+                    radius="xl"
+                    aria-label="Open chat"
+                    onClick={open}
+                    style={{ boxShadow: "var(--shadow-card)" }}
+                  >
+                    <IconMessage size={22} stroke={1.5} />
+                  </ActionIcon>
                   {unread && (
                     <Badge
                       color="red"
                       size="xs"
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        borderRadius: "50%"
-                      }}
+                      circle
+                      style={{ position: "absolute", top: -4, right: -4 }}
                     >
                       !
                     </Badge>
                   )}
-                </ActionIcon>
-
-                <Drawer
-                  opened={opened}
-                  onClose={close}
-                  size="100%"
-                  styles={{
-                    content: {
-                      backgroundColor: "transparent"
-                    },
-                    header: {
-                      backgroundColor: "transparent"
-                    },
-                    close: {
-                      color: "white"
-                    },
-                    body: {
-                      height: "90%"
-                    }
-                  }}
-                >
-                  <Chat drawer />
-                </Drawer>
-              </>
-            ) : (
-              <Chat />
-            )}
-          </Group>
-        </Container>
+                </Box>
+              </Box>
+              <Drawer
+                opened={opened}
+                onClose={close}
+                size="100%"
+                styles={{
+                  content: { backgroundColor: "var(--color-background)" },
+                  header: {
+                    backgroundColor: "var(--color-surface)",
+                    borderBottom: "1px solid var(--color-shade)"
+                  },
+                  close: { color: "white" },
+                  body: { height: "90%" }
+                }}
+              >
+                <Chat drawer />
+              </Drawer>
+            </>
+          ) : (
+            <Chat />
+          )}
+        </Box>
       </Layout>
     );
 

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Layout } from "../../components/layout";
-import { Box, Group, Divider, Space, ActionIcon, Title } from "@mantine/core";
-import { Container } from "../../components/container";
-import { MdOutlineAdd } from "react-icons/md";
+import { Box, Group, Button, Title, Text, Stack } from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react";
 import { CreateRoomModal } from "./create-room-modal";
 import { Rooms } from "./rooms";
 import { useMounted } from "@mantine/hooks";
@@ -15,35 +14,56 @@ export const RoomsPage: PageComponent = () => {
   if (!mounted) return null;
 
   return (
-    <>
-      <Layout title="rooms">
-        <Box style={{ width: "100%" }}>
-          <Container>
-            <Group justify="space-between">
-              <Title>rooms</Title>
-              <ActionIcon
-                variant="filled"
-                color="indigo"
-                radius="xl"
-                size="md"
-                onClick={() => setopened(true)}
-              >
-                <MdOutlineAdd />
-              </ActionIcon>
-            </Group>
-            <Space h="sm" />
-            <Divider variant="solid" color="indigo" />
-            <Space h="sm" />
-            <Rooms />
-          </Container>
-        </Box>
+    <Layout title="Rooms | DropTalk">
+      <Box style={{ maxWidth: 900, width: "100%", margin: "0 auto" }}>
+        <Group
+          justify="space-between"
+          align="flex-end"
+          mb="xl"
+          wrap="wrap"
+          gap="md"
+        >
+          <Box>
+            <Title
+              order={1}
+              fw={700}
+              c="white"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              Rooms
+            </Title>
+            <Text c="dimmed" mt={4}>
+              Join a room or create your own to start talking
+            </Text>
+          </Box>
+          <Button
+            leftSection={<IconPlus size={18} />}
+            size="md"
+            radius="md"
+            onClick={() => setopened(true)}
+          >
+            New room
+          </Button>
+        </Group>
 
-        <CreateRoomModal
-          opened={opened}
-          setopened={(value) => setopened(value)}
-        />
-      </Layout>
-    </>
+        <Stack
+          p="lg"
+          style={{
+            borderRadius: "var(--radius-card)",
+            backgroundColor: "var(--color-elevated)",
+            border: "1px solid var(--color-shade)",
+            boxShadow: "var(--shadow-card)",
+            minHeight: 320,
+            maxHeight: "calc(100vh - 220px)",
+            overflow: "auto"
+          }}
+        >
+          <Rooms />
+        </Stack>
+      </Box>
+
+      <CreateRoomModal opened={opened} setopened={setopened} />
+    </Layout>
   );
 };
 

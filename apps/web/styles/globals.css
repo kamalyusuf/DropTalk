@@ -1,19 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Finlandica&display=swap");
+@import "https://fonts.googleapis.com/css2?family=Finlandica:wght@400;500;600;700&display=swap";
 
 :root {
-  --color-background: #101113;
-  --color-primary: #4f46e5;
+  --color-background: #0c0d0e;
+  --color-surface: #141518;
+  --color-elevated: #1c1d21;
+  --color-primary: #6366f1;
+  --color-primary-muted: rgba(99, 102, 241, 0.15);
   --color-secondary: #dce546;
   --color-danger: #dc2626;
   --color-success: #059669;
   --color-warning: #d97706;
-  --color-shade: #191b1e;
+  --color-shade: #1a1b1e;
+  --radius-app: 12px;
+  --radius-card: 16px;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.25);
+  --sidebar-width: 240px;
 
   --toastify-color-info: var(--color-primary) !important;
   --toastify-color-error: var(--color-danger) !important;
-  --toastify-text-color-light: #25262b !important;
   --toastify-color-success: var(--color-success) !important;
   --toastify-color-warning: var(--color-warning) !important;
+  --toastify-color-light: #fff !important;
+  --toastify-text-color-light: #25262b !important;
   --toastify-toast-min-height: 24px !important;
 }
 
@@ -29,6 +37,7 @@ body,
   height: 100%;
   width: 100%;
   background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
 }
 
 #__next {
@@ -42,7 +51,7 @@ body,
 
 #nprogress .bar {
   background: var(--color-primary) !important;
-  height: 3px !important;
+  height: 2px !important;
 }
 
 #nprogress .peg {
@@ -60,14 +69,17 @@ body,
   color: var(--color-primary);
 }
 
-.Toastify__toast-body {
-  font-size: 14px !important;
-  white-space: pre-line !important;
+.Toastify__toast {
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.Toastify__close-button {
+  color: #101113 !important;
 }
 
 ::-webkit-scrollbar {
-  /*width: 7.21591px;*/
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track:hover {
@@ -129,4 +141,8 @@ body,
 
 .debug {
   border: 1px solid red;
+}
+
+.mantine-Select-option {
+  font-size: 16px;
 }

@@ -1,5 +1,4 @@
 import "nprogress/nprogress.css";
-import "react-toastify/dist/ReactToastify.css";
 import "@mantine/core/styles.css";
 import "../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
@@ -62,7 +61,7 @@ const App = ({ Component: C, pageProps }: AppProps) => {
         {isFirefox ? (
           <Alert
             type="warning"
-            message="firefox is not supported. use chrome/edge/brave/opera"
+            message="Firefox is not supported. Use Chrome/Edge/Brave/Opera"
             wrap={false}
             style={{ marginTop: 100 }}
           />
@@ -81,11 +80,9 @@ const App = ({ Component: C, pageProps }: AppProps) => {
                 <Component {...pageProps} />
               )}
             </>
-            {process.env.NODE_ENV === "production" && (
-              <Analytics mode="production" />
-            )}
+            {process.env.NODE_ENV === "production" && <Analytics />}
             <ToastContainer
-              position="bottom-center"
+              position="top-right"
               autoClose={3000}
               newestOnTop={true}
               closeOnClick
@@ -98,6 +95,7 @@ const App = ({ Component: C, pageProps }: AppProps) => {
           </SocketProvider>
         )}
       </MantineProvider>
+
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </QueryClientProvider>
   );

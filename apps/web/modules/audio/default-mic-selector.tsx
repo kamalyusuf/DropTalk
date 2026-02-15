@@ -3,6 +3,7 @@ import { useMicStore } from "../../store/mic";
 import { Stack, Text, Select, Button, Loader, Center } from "@mantine/core";
 import { toast } from "react-toastify";
 import { useShallow } from "../../hooks/use-shallow";
+import { sleep } from "../../utils/sleep";
 
 export const DefaultMicSelector = () => {
   const [mics, setmics] = useState<{ id: string; label: string }[]>([]);
@@ -14,24 +15,25 @@ export const DefaultMicSelector = () => {
     }))
   );
 
-  const enumerate = () => {
+  const enumerate = async (delay?: number) => {
     setenumerating(true);
 
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then((info) => {
-        const devices = info
-          .filter((device) => device.kind === "audioinput" && device.deviceId)
-          .map((device) => ({ id: device.deviceId, label: device.label }));
+    if (delay) await sleep(delay);
 
-        setmics(devices);
-      })
-      .catch((e) => {
-        const error = e as Error;
+    try {
+      const info = await navigator.mediaDevices.enumerateDevices();
+      const devices = info
+        .filter((device) => device.kind === "audioinput" && device.deviceId)
+        .map((device) => ({ id: device.deviceId, label: device.label }));
 
-        toast.error(error.message);
-      })
-      .finally(() => setenumerating(false));
+      setmics(devices);
+    } catch (e) {
+      toast.error(
+        e instanceof Error ? e.message : "Failed to retrieve devices."
+      );
+    } finally {
+      setenumerating(false);
+    }
   };
 
   useEffect(() => {
@@ -39,52 +41,44 @@ export const DefaultMicSelector = () => {
   }, []);
 
   return (
-    <>
-      <Stack gap={15}>
-        {enumerating ? (
-          <Center>
-            <Loader size="sm" />
-          </Center>
-        ) : (
-          <>
-            <Stack>
-              {mics.length === 0 ? (
-                <Text c="red" size="sm" style={{ fontStyle: "italic" }}>
-                  no microphone(s) detected
-                </Text>
-              ) : (
-                <Select
-                  label={
-                    <Text c="dark" style={{ fontSize: 16 }}>
-                      default microphone
-                    </Text>
-                  }
-                  placeholder="select"
-                  size="xs"
-                  data={[
-                    ...mics.map((mic) => ({
-                      value: mic.id,
-                      label: mic.label
-                    })),
-                    { value: "-", label: "-" }
-                  ]}
-                  value={micid}
-                  onChange={(value) => {
-                    if (!value) return;
-
-                    setdefaultmic(value);
-
-                    toast.success("saved");
-                  }}
-                />
-              )}
-            </Stack>
-            <Button color="dark" onClick={enumerate}>
-              refresh
-            </Button>
-          </>
-        )}
-      </Stack>
-    </>
+    <Stack gap="sm">
+      {enumerating ? (
+        <Center>
+          <Loader size="sm" />
+        </Center>
+      ) : (
+        <>
+          {mics.length === 0 ? (
+            <Text c="red">No microphone(s) detected</Text>
+          ) : (
+            <Select
+              label={<Text component="span">Default microphone</Text>}
+              placeholder="Select"
+              size="xs"
+              radius="md"
+              data={[
+                ...mics.map((mic) => ({ value: mic.id, label: mic.label })),
+                { value: "-", label: "—" }
+              ]}
+              value={micid}
+              onChange={(value) => {
+                if (!value) return;
+                setdefaultmic(value);
+                toast.success("Saved");
+              }}
+            />
+          )}
+          <Button
+            variant="subtle"
+            color="gray"
+            size="xs"
+            radius="md"
+            onClick={() => enumerate(250)}
+          >
+            Refresh list
+          </Button>
+        </>
+      )}
+    </Stack>
   );
 };

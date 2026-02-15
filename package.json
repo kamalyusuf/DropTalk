@@ -1,5 +1,5 @@
 {
-  "name": "uhhhh",
+  "name": "droptalk",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -9,22 +9,23 @@
     "start": "turbo start",
     "build": "turbo build",
     "dev": "turbo dev",
-    "api:dev": "turbo dev --filter=api... --no-cache",
-    "api:build": "turbo build --filter=api",
-    "api:typecheck": "turbo typecheck --filter=api",
-    "web:dev": "turbo dev --filter=web... --no-cache",
+    "server:dev": "turbo dev --filter=server...",
+    "server:build": "turbo build --filter=server",
+    "server:typecheck": "turbo typecheck --filter=server",
+    "web:dev": "turbo dev --filter=web...",
     "web:build": "turbo build --filter=web",
     "web:typecheck": "turbo typecheck --filter=web",
     "clean": "turbo clean",
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
-    "prettier": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "turbo": "^2.2.3"
+    "kill-port": "^2.0.1",
+    "prettier": "^3.8.1",
+    "rimraf": "^6.1.2",
+    "turbo": "^2.8.8"
   },
   "engines": {
-    "node": ">=20.6.0"
+    "node": ">=22"
   },
   "packageManager": "yarn@4.5.3"
 }

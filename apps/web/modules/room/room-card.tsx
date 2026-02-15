@@ -1,8 +1,6 @@
-import { Group, Text, ThemeIcon, Button, Stack, Title } from "@mantine/core";
-import { MdRoom } from "react-icons/md";
-import { GoDotFill } from "react-icons/go";
+import { Group, Text, Button, Box, ThemeIcon } from "@mantine/core";
+import { IconLock, IconUsers } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { IoMdLock } from "react-icons/io";
 import { micenabled } from "../../utils/mic";
 import type { Room } from "types";
 
@@ -14,64 +12,64 @@ export const RoomCard = ({ room }: Props) => {
   const router = useRouter();
 
   return (
-    <Group justify="space-between" align="center">
-      <Group align="baseline">
-        <ThemeIcon
-          variant="light"
-          style={{ backgroundColor: "transparent" }}
-          size="sm"
-        >
-          <MdRoom />
+    <Box
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "var(--mantine-spacing-md)",
+        padding: "var(--mantine-spacing-md) var(--mantine-spacing-lg)",
+        borderRadius: "var(--radius-app)",
+        border: "1px solid var(--color-shade)",
+        backgroundColor: "var(--color-surface)",
+        transition: "border-color 0.15s ease, background-color 0.15s ease"
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = "var(--color-elevated)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = "var(--color-surface)";
+      }}
+    >
+      <Group gap="md" wrap="nowrap" style={{ flex: 1, minWidth: 0 }}>
+        <ThemeIcon size={44} radius="xl" color="indigo" variant="light">
+          <IconUsers size={22} />
         </ThemeIcon>
-        <Stack gap={0}>
-          <Group align="center">
-            <Title order={3}>{room.name}</Title>
-            {room.status === "protected" ? (
-              <ThemeIcon
-                variant="light"
-                style={{
-                  backgroundColor: "transparent",
-                  color: "gold"
-                }}
-                size="sm"
-              >
-                <IoMdLock />
-              </ThemeIcon>
-            ) : null}
-          </Group>
-          <Text c="indigo" size="sm">
-            {room.description}
-          </Text>
-          <Group align="center" gap={10}>
-            <ThemeIcon
-              variant="light"
-              style={{ backgroundColor: "transparent" }}
-              size="sm"
-              color="red"
-            >
-              <GoDotFill />
-            </ThemeIcon>
-            <Text c="white" size="sm">
-              {room.members_count}
+        <Box style={{ minWidth: 0, flex: 1 }}>
+          <Group gap="xs" align="center">
+            <Text fw={600} size="md" c="white" lineClamp={1}>
+              {room.name}
             </Text>
+            {room.status === "protected" && (
+              <ThemeIcon size="sm" radius="sm" color="yellow" variant="light">
+                <IconLock size={12} />
+              </ThemeIcon>
+            )}
           </Group>
-          <Text c="indigo" size="sm" style={{ fontStyle: "italic" }}>
-            created by: {room.creator.display_name}
+          {room.description ? (
+            <Text size="sm" c="dimmed" lineClamp={1} mt={2}>
+              {room.description}
+            </Text>
+          ) : null}
+          <Text size="xs" c="dimmed" mt={4}>
+            {room.members_count} in room · {room.creator.display_name}
           </Text>
-        </Stack>
+        </Box>
       </Group>
 
       <Button
         size="sm"
-        radius="xl"
+        radius="md"
+        variant="light"
+        color="indigo"
         onClick={async () => {
           if (!(await micenabled())) return;
 
-          await router.push(`/rooms/${room._id}`);
+          await router.push(`/app/rooms/${room._id}`);
         }}
       >
-        join
+        Join
       </Button>
-    </Group>
+    </Box>
   );
 };

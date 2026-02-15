@@ -1,8 +1,7 @@
-import { Badge, Stack, Modal, Slider, Text } from "@mantine/core";
+import { Box, Text, ThemeIcon, Stack, Modal, Slider } from "@mantine/core";
 import { Audio } from "../audio/audio";
 import { useConsumerStore } from "../../store/consumer";
 import { AiOutlineAudioMuted } from "react-icons/ai";
-import { Icon } from "../../components/icon";
 import { useDisclosure } from "@mantine/hooks";
 import { useShallow } from "../../hooks/use-shallow";
 import type { User } from "types";
@@ -24,49 +23,106 @@ export const PeerBadge = ({
     }))
   );
 
-  const consumer = consumers[peer._id]?.consumer;
   const paused = consumers[peer._id]?.paused;
   const volume = consumers[peer._id]?.volume;
+  const consumer = consumers[peer._id]?.consumer;
+  const initial = peer.display_name.slice(0, 1).toUpperCase();
+
+  const card = (
+    <Box
+      component="button"
+      type="button"
+      onClick={() => !me && open()}
+      disabled={me}
+      style={{
+        width: "100%",
+        border: "none",
+        cursor: me ? "default" : "pointer",
+        textAlign: "left",
+        padding: "var(--mantine-spacing-md)",
+        borderRadius: "var(--radius-app)",
+        backgroundColor: "var(--color-surface)",
+        borderWidth: 2,
+        borderStyle: "solid",
+        borderColor: speaker
+          ? me
+            ? "var(--color-danger)"
+            : "var(--color-primary)"
+          : "var(--color-shade)",
+        transition: "border-color 0.15s ease, background-color 0.15s ease"
+      }}
+      onMouseEnter={(e) => {
+        if (!me)
+          e.currentTarget.style.backgroundColor = "var(--color-elevated)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = "var(--color-surface)";
+      }}
+    >
+      <Stack gap="xs" align="center">
+        <ThemeIcon
+          size={48}
+          radius="xl"
+          color={me ? "red" : "indigo"}
+          variant="light"
+        >
+          {paused ? (
+            <AiOutlineAudioMuted size={24} />
+          ) : (
+            <Text fw={700} size="lg">
+              {initial}
+            </Text>
+          )}
+        </ThemeIcon>
+        <Text
+          size="sm"
+          fw={500}
+          c="white"
+          truncate
+          style={{ width: "100%", textAlign: "center" }}
+        >
+          {me ? "You" : peer.display_name}
+        </Text>
+        {speaker && (
+          <Text size="xs" c={me ? "red" : "indigo"}>
+            Speaking
+          </Text>
+        )}
+      </Stack>
+    </Box>
+  );
 
   return (
     <>
-      <Badge
-        variant="dot"
-        size="lg"
-        color={me ? "red" : "indigo"}
-        style={{
-          boxShadow: speaker
-            ? `0px 0px 6px 3px ${me ? "var(--color-danger)" : "var(--color-primary)"}`
-            : "",
-          pointerEvents: me ? "none" : undefined
-        }}
-        rightSection={
-          paused ? (
-            <Icon color="red">
-              <AiOutlineAudioMuted size={15} />
-            </Icon>
-          ) : undefined
+      {card}
+      {!me && consumer ? (
+        <Audio consumer={consumer} volume={volume ?? 100} />
+      ) : null}
+      <Modal
+        opened={opened}
+        onClose={close}
+        title={
+          <Text fw={600} size="lg" c="white">
+            {peer.display_name} — Volume
+          </Text>
         }
-        className="cursor-pointer"
-        onClick={() => !me && open()}
+        radius="var(--radius-card)"
+        styles={{
+          content: {
+            backgroundColor: "var(--color-elevated)",
+            border: "1px solid var(--color-shade)"
+          },
+          header: {
+            backgroundColor: "var(--color-elevated)",
+            borderBottom: "1px solid var(--color-shade)"
+          }
+        }}
       >
-        {me ? "you" : peer.display_name}
-      </Badge>
-
-      {me ? null : <Audio consumer={consumer!} volume={volume ?? 100} />}
-
-      <Modal opened={opened} onClose={close} title={peer.display_name}>
-        <Stack>
-          <Stack gap={0}>
-            <Text c="dark" fw="bold">
-              volume
-            </Text>
-            <Slider
-              value={volume}
-              onChange={(value) => !me && setvolume(peer._id, value)}
-            />
-          </Stack>
-        </Stack>
+        <Slider
+          value={volume ?? 100}
+          onChange={(value) => setvolume(peer._id, value)}
+          label={(v) => `${v}%`}
+        />
       </Modal>
     </>
   );

@@ -8,8 +8,9 @@
 **/.vscode
 **/.next
 **/*.config.*
-apps/api/.madgerc
+apps/server/.madgerc
 ignore.txt
+todo
 run.sh
 .prettierrc
 __.github__

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useRoomStore } from "../../store/room";
 import { useSocket } from "../socket/socket-provider";
 import { request } from "../../utils/request";
-import { detectDevice, Device } from "mediasoup-client";
+import { detectDeviceAsync, Device } from "mediasoup-client";
 import { useTransportStore } from "../../store/transport";
 import { usePeerStore } from "../../store/peer";
 import { useProducerStore } from "../../store/producer";
@@ -15,7 +15,7 @@ import type { EventError, Room } from "types";
 
 export const useRoom = (room: Room) => {
   const { socket } = useSocket();
-  const device = useRef(loaddevice()).current;
+  const deviceref = useRef<Device | null>(null);
   const router = useRouter();
   const producerstore = useProducerStore();
   const transportstore = useTransportStore();
@@ -71,7 +71,18 @@ export const useRoom = (room: Room) => {
         }
       });
 
-      await device.load({ routerRtpCapabilities: rtp_capabilities });
+      if (!deviceref.current) {
+        let handlername = await detectDeviceAsync();
+
+        if (!handlername) handlername = "Chrome74";
+
+        deviceref.current = new Device({ handlerName: handlername });
+      }
+
+      const device = deviceref.current;
+
+      if (!device.loaded)
+        await device.load({ routerRtpCapabilities: rtp_capabilities });
 
       {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -204,7 +215,7 @@ export const useRoom = (room: Room) => {
       if (!device.canProduce("audio")) {
         setroomstore({
           state: "connected",
-          warn_message: "cannot consume your audio due to some unknown error"
+          warn_message: "Cannot consume your audio due to some unknown error"
         });
 
         toast.info("connected");
@@ -238,7 +249,7 @@ export const useRoom = (room: Room) => {
 
         await leave();
 
-        await router.replace("/rooms");
+        await router.replace("/app/rooms");
       });
 
       producerstore.add(producer);
@@ -342,11 +353,3 @@ export const useRoom = (room: Room) => {
     togglemute
   };
 };
-
-function loaddevice(): Device {
-  let handlername = detectDevice();
-
-  if (!handlername) handlername = "Chrome74";
-
-  return new Device({ handlerName: handlername });
-}

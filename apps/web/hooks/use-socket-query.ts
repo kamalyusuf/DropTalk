@@ -24,6 +24,8 @@ type Options<T extends ServerEvent> = Omit<
   "queryKey" | "queryFn"
 >;
 
+const isserver = typeof window === "undefined";
+
 export const useSocketQuery = <T extends ServerEvent>(
   ...args: Params<T> extends never
     ? [key: T | [T, ...ExtraQueryKeys], options?: Options<T>]
@@ -33,7 +35,7 @@ export const useSocketQuery = <T extends ServerEvent>(
         options?: Options<T>
       ]
 ): UseQueryResult<SocketRequestResponse<T>, SocketEventError> => {
-  const { socket, state } = useSocket();
+  const { socket } = useSocket();
 
   const key = args[0];
   const payload =
@@ -46,9 +48,9 @@ export const useSocketQuery = <T extends ServerEvent>(
     ...(options ?? {}),
     queryKey: Array.isArray(key) ? key : [key],
     queryFn: () => {
-      if (!socket) throw new Error("socket not initialized");
+      if (!socket) throw new Error("Socket is not initialized");
 
-      if (!socket.connected) throw new Error("socket not connected");
+      if (!socket.connected) throw new Error("Socket is not connected");
 
       return request({
         socket,
@@ -57,10 +59,14 @@ export const useSocketQuery = <T extends ServerEvent>(
       });
     },
     enabled:
-      typeof window !== "undefined" &&
-      state === "connected" &&
-      (typeof options?.enabled === "function"
-        ? options.enabled
-        : (options?.enabled ?? true))
+      typeof options?.enabled === "function"
+        ? (query) => {
+            return (
+              !isserver &&
+              !!socket?.connected &&
+              (options.enabled as (query: object) => boolean)(query)
+            );
+          }
+        : !isserver && !!socket?.connected && (options?.enabled ?? true)
   });
 };
