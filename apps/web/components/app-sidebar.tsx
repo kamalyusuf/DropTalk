@@ -18,7 +18,9 @@ export function AppSidebar() {
   const roomstate = useRoomStore((state) => state.state);
   const inroom = roomstate === "connected";
 
-  const matches = useMediaQuery("(max-width: 768px)");
+  const matches = useMediaQuery("(max-width: 768px)", true, {
+    getInitialValueInEffect: false
+  });
 
   return (
     <Box
@@ -42,6 +44,8 @@ export function AppSidebar() {
             color: "inherit",
             pointerEvents: inroom ? "none" : undefined
           }}
+          aria-disabled={inroom}
+          tabIndex={inroom ? -1 : 0}
         >
           <Group gap="xs">
             <ThemeIcon variant="transparent">
@@ -81,6 +85,8 @@ export function AppSidebar() {
                 if (!active)
                   e.currentTarget.style.backgroundColor = "transparent";
               }}
+              aria-disabled={inroom}
+              tabIndex={inroom ? -1 : 0}
             >
               <Group gap="sm">
                 <ThemeIcon
@@ -119,6 +125,7 @@ export function AppSidebar() {
               textAlign: "left",
               pointerEvents: inroom ? "none" : undefined
             }}
+            disabled={inroom}
           >
             <Group gap="sm">
               <ThemeIcon size="md" radius="xl" color="indigo" variant="light">
