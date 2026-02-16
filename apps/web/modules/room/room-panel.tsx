@@ -18,8 +18,7 @@ import { usePeerStore } from "../../store/peer";
 import { useUserStore } from "../../store/user";
 import { useRoomStore } from "../../store/room";
 import { useClipboard, useDisclosure, useHotkeys } from "@mantine/hooks";
-import { IconShare, IconInfoCircle } from "@tabler/icons-react";
-import { IoExitOutline } from "react-icons/io5";
+import { IconShare, IconInfoCircle, IconLogout } from "@tabler/icons-react";
 import { useRoomTimeElapsed } from "./use-room-time-elapsed";
 import { useCallback } from "react";
 import { KeyboardShortcut } from "../../components/keyboard-shortcut";
@@ -159,7 +158,7 @@ export const RoomPanel = ({ room, actions }: Props) => {
                 onClick={leave}
                 disabled={leaving}
                 loading={leaving}
-                leftSection={<IoExitOutline size={16} />}
+                leftSection={<IconLogout size={16} />}
               >
                 Leave room
               </Button>

@@ -1,7 +1,7 @@
 import { Box, Text, ThemeIcon, Stack, Modal, Slider } from "@mantine/core";
 import { Audio } from "../audio/audio";
 import { useConsumerStore } from "../../store/consumer";
-import { AiOutlineAudioMuted } from "react-icons/ai";
+import { IconMicrophoneOff } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useShallow } from "../../hooks/use-shallow";
 import type { User } from "types";
@@ -67,7 +67,7 @@ export const PeerBadge = ({
           variant="light"
         >
           {paused ? (
-            <AiOutlineAudioMuted size={24} />
+            <IconMicrophoneOff size={24} />
           ) : (
             <Text fw={700} size="lg">
               {initial}
