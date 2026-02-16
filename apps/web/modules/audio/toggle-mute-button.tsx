@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core";
-import { IoMdMic, IoMdMicOff } from "react-icons/io";
+import { IconMicrophoneFilled, IconMicrophoneOff } from "@tabler/icons-react";
 import { useProducerStore } from "../../store/producer";
 
 interface Props {
@@ -18,7 +18,11 @@ export const ToggleMuteButton = ({ toggle }: Props) => {
       radius="xl"
       aria-label={producer?.paused ? "Unmute" : "Mute"}
     >
-      {producer?.paused ? <IoMdMicOff size={24} /> : <IoMdMic size={24} />}
+      {producer?.paused ? (
+        <IconMicrophoneOff size={24} />
+      ) : (
+        <IconMicrophoneFilled size={24} />
+      )}
     </ActionIcon>
   );
 };
