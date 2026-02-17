@@ -12,7 +12,7 @@ export const app = express();
 app.set("trust proxy", true);
 app.use(express.json({ limit: "500kb" }));
 app.use(helmet());
-app.use(cors({ origin: env.WEB_URL.split(",") }));
+app.use(cors({ origin: env.WEB_URL.split(",").filter(Boolean) }));
 
 app.get(
   ["/", "/health", "/api/health"],

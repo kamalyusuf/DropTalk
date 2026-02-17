@@ -82,7 +82,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
     };
   }, [events, safeleave]);
 
-  useHotkeys([["m", () => togglemute()]]);
+  useHotkeys([["m", togglemute]]);
 
   if (!mounted) return null;
 
@@ -97,7 +97,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
     return (
       <Alert
         type="error"
-        message="connection failed. try refreshing the page"
+        message="Connection failed. Try refreshing the page."
         wrap
       />
     );
