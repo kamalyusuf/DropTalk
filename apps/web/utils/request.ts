@@ -34,6 +34,7 @@ export const request = <T extends ServerEvent>({
     let settled = false;
     let timer: ReturnType<typeof setTimeout>;
     let onerror: (error: EventError) => void;
+    const request_id = window.crypto.randomUUID();
 
     const settle = (fn: () => void) => {
       if (settled) return;
@@ -44,9 +45,10 @@ export const request = <T extends ServerEvent>({
     };
 
     onerror = (error) => {
-      if (error.event && error.event !== event) return;
+      if (error.request_id && error.request_id !== request_id) return;
+      if (!error.request_id && error.event && error.event !== event) return;
 
-      error.errors.forEach((e) => toast.error(e.message));
+      error.errors.forEach((e) => void toast.error(e.message));
 
       settle(() => reject(error));
     };
@@ -60,45 +62,9 @@ export const request = <T extends ServerEvent>({
     socket.emit(
       event,
       // @ts-ignore
-      { payload, __request__: true },
+      { payload, __request__: true, request_id },
       (response: SocketRequestResponse<T>) => {
         settle(() => resolve(response));
       }
     );
   });
-
-// export const request = <T extends ServerEvent>({
-//   socket,
-//   event,
-//   payload
-// }: Config<T>): Promise<SocketRequestResponse<T>> =>
-//   new Promise<SocketRequestResponse<T>>((resolve, reject) => {
-//     const timer = setTimeout(() => {
-//       socket.off("request error", listener);
-
-//       reject(new Error("Request timed out"));
-//     }, 15000);
-
-//     const listener = (error: EventError) => {
-//       error.errors.forEach((e) => toast.error(e.message));
-
-//       clearTimeout(timer);
-
-//       reject(error);
-//     };
-
-//     socket.once("request error", listener);
-
-//     socket.emit(
-//       event,
-//       // @ts-ignore
-//       { payload, __request__: true },
-//       (response: SocketRequestResponse<T>) => {
-//         socket.off("request error", listener);
-
-//         clearTimeout(timer);
-
-//         resolve(response);
-//       }
-//     );
-//   });

@@ -8,19 +8,19 @@ export const ondisconnect = (peer: Peer) => async (reason: string) => {
   if (env.isDevelopment)
     consola.info(`${peer.user.display_name} disconnected. Reason: ${reason}.`);
 
-  if (!peer.active_room_id) return;
-
-  const rid = peer.active_room_id;
-
   try {
+    if (!peer.active_room_id) return;
+
+    const rid = peer.active_room_id;
+
     const room = MediasoupRoom.findbyid(rid);
 
-    await room.leave(peer);
+    room.leave(peer);
   } catch (e) {
     const error = e as Error;
 
     logger.error(`Failed to leave room. reason: ${error.message}`, error);
+  } finally {
+    Peer.remove(peer);
   }
-
-  Peer.remove(peer);
 };

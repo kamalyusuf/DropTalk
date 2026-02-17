@@ -2,7 +2,7 @@
 
 ## App Demo
 
-https://github.com/user-attachments/assets/d01e5943-916b-4e13-9262-38f845a6f5f5
+https://github.com/user-attachments/assets/619009ca-e6c5-487a-a06b-9d93813e001f
 
 The project includes:
 

@@ -36,6 +36,7 @@ export const validateargs = (
   eventpayload: EventPayload<ServerEvent> | undefined;
   cb: Fn | undefined;
   __request__?: boolean | undefined;
+  request_id?: string;
 } => {
   if (!args.length) return { eventpayload: undefined, cb: undefined };
 
@@ -47,6 +48,7 @@ export const validateargs = (
   let eventpayload: EventPayload<ServerEvent> | undefined;
 
   let __request__ = false;
+  let request_id: string | undefined;
 
   const set = (p: { [key: string]: unknown }) => {
     if (!isobject(p))
@@ -55,7 +57,7 @@ export const validateargs = (
     if (typeof p.__request__ === "undefined")
       return p as EventPayload<ServerEvent>;
 
-    if (!p.payload)
+    if (!Object.prototype.hasOwnProperty.call(p, "payload"))
       throw new UnprocessableEntityError(
         `Expected payload to be contained in 'payload' property if __request__ (i.e, The request is coming from 'request' function) is present [and must be true].`
       );
@@ -64,9 +66,11 @@ export const validateargs = (
       s.object<{
         payload: AnyObject;
         __request__: true;
+        request_id?: string;
       }>({
         __request__: s.boolean().valid(true),
-        payload: s.anyobject()
+        payload: s.anyobject(),
+        request_id: s.string().optional()
       }),
       p
     );
@@ -74,6 +78,7 @@ export const validateargs = (
     if (error) throw new JoiValidationError(error.details);
 
     __request__ = value.__request__;
+    request_id = value.request_id;
 
     return value.payload as EventPayload<ServerEvent>;
   };
@@ -107,7 +112,7 @@ export const validateargs = (
     callbackfn = cb;
   } else throw overloaderror;
 
-  return { eventpayload, cb: callbackfn, __request__ };
+  return { eventpayload, cb: callbackfn, __request__, request_id };
 };
 
 const UserSchema = s.object<User>({
@@ -140,25 +145,31 @@ export const onerror = ({
   socket,
   event,
   peer,
-  __request__
+  __request__,
+  request_id
 }: {
   error: Error;
   socket: TypedSocket;
   event: E;
   peer: Peer;
   __request__?: boolean;
+  request_id?: string;
 }) => {
   const on = __request__ ? "request error" : "error";
 
   if (error instanceof CustomError)
-    return socket.emit(on, new SocketEventError(event.on, error.serialize()));
+    return socket.emit(
+      on,
+      new SocketEventError(event.on, error.serialize(), request_id)
+    );
 
   if (joi.isError(error))
     return socket.emit(
       on,
       new SocketEventError(
         event.on,
-        new JoiValidationError(error.details).serialize()
+        new JoiValidationError(error.details).serialize(),
+        request_id
       )
     );
 
@@ -172,9 +183,13 @@ export const onerror = ({
 
   return socket.emit(
     on,
-    new SocketEventError(event.on, {
-      message: error.message
-    })
+    new SocketEventError(
+      event.on,
+      {
+        message: error.message
+      },
+      request_id
+    )
   );
 };
 

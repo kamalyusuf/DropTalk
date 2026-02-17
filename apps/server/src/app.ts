@@ -22,7 +22,7 @@ app.get(
 app.use("/api/rooms", roomrouter);
 
 app.use((req, _res, next) => {
-  next(new NotFoundError(`route: ${req.method} ${req.url} not found`));
+  next(new NotFoundError(`Route: ${req.method} ${req.url} not found`));
 });
 
 Sentry.setupExpressErrorHandler(app);
@@ -40,7 +40,7 @@ app.use(
     res.status(500).send({
       errors: [
         {
-          message: error.message
+          message: env.isProduction ? "Internal server error." : error.message
         }
       ]
     });

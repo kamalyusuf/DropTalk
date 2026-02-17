@@ -248,7 +248,7 @@ export const useRoom = (room: Room) => {
       });
 
       producer.on("transportclose", () => {
-        setproducerstore({ producer: null });
+        setproducerstore({ producer: null, paused: false });
       });
 
       producer.on("trackended", async () => {
