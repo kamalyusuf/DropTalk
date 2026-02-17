@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import type { Fn, EmptyObject } from "types";
+import type { Fn, EmptyObject, EventError } from "types";
 import type {
   ServerEvent,
   TypedSocket,
@@ -14,8 +14,8 @@ export type SocketRequestResponse<T extends ServerEvent> =
   SocketRequestParams<T>[0] extends Fn
     ? Parameters<SocketRequestParams<T>[0]>[0]
     : SocketRequestParams<T>[1] extends Fn
-    ? Parameters<SocketRequestParams<T>[1]>[0]
-    : never;
+      ? Parameters<SocketRequestParams<T>[1]>[0]
+      : never;
 
 interface Config<T extends ServerEvent> {
   socket: TypedSocket;
@@ -31,27 +31,74 @@ export const request = <T extends ServerEvent>({
   payload
 }: Config<T>): Promise<SocketRequestResponse<T>> =>
   new Promise<SocketRequestResponse<T>>((resolve, reject) => {
-    const timer = setTimeout(
-      () => reject(new Error("request timed out")),
-      15000
-    );
+    let settled = false;
+    let timer: ReturnType<typeof setTimeout>;
+    let onerror: (error: EventError) => void;
 
-    socket.on("request error", (error) => {
+    const settle = (fn: () => void) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      socket.off("request error", onerror);
+      fn();
+    };
+
+    onerror = (error) => {
+      if (error.event && error.event !== event) return;
+
       error.errors.forEach((e) => toast.error(e.message));
 
-      clearTimeout(timer);
+      settle(() => reject(error));
+    };
 
-      reject(error);
-    });
+    timer = setTimeout(() => {
+      settle(() => reject(new Error("Request timed out.")));
+    }, 15000);
+
+    socket.on("request error", onerror);
 
     socket.emit(
       event,
       // @ts-ignore
       { payload, __request__: true },
       (response: SocketRequestResponse<T>) => {
-        clearTimeout(timer);
-
-        resolve(response);
+        settle(() => resolve(response));
       }
     );
-  }).finally(() => socket.off("request error"));
+  });
+
+// export const request = <T extends ServerEvent>({
+//   socket,
+//   event,
+//   payload
+// }: Config<T>): Promise<SocketRequestResponse<T>> =>
+//   new Promise<SocketRequestResponse<T>>((resolve, reject) => {
+//     const timer = setTimeout(() => {
+//       socket.off("request error", listener);
+
+//       reject(new Error("Request timed out"));
+//     }, 15000);
+
+//     const listener = (error: EventError) => {
+//       error.errors.forEach((e) => toast.error(e.message));
+
+//       clearTimeout(timer);
+
+//       reject(error);
+//     };
+
+//     socket.once("request error", listener);
+
+//     socket.emit(
+//       event,
+//       // @ts-ignore
+//       { payload, __request__: true },
+//       (response: SocketRequestResponse<T>) => {
+//         socket.off("request error", listener);
+
+//         clearTimeout(timer);
+
+//         resolve(response);
+//       }
+//     );
+//   });

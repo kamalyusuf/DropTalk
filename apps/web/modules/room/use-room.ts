@@ -17,17 +17,7 @@ export const useRoom = (room: Room) => {
   const { socket } = useSocket();
   const deviceref = useRef<Device | null>(null);
   const router = useRouter();
-  const producerstore = useProducerStore();
-  const transportstore = useTransportStore();
   const setroomstore = useRoomStore((state) => state.set);
-  const { micid, ...micstore } = useMicStore(
-    useShallow((state) => ({
-      micid: state.id,
-      reset: state.reset,
-      setstream: state.setstream,
-      settrack: state.settrack
-    }))
-  );
   const peerstore = usePeerStore(
     useShallow((state) => ({
       reset: state.reset,
@@ -55,12 +45,29 @@ export const useRoom = (room: Room) => {
 
     setroomstore({ state: "connecting" });
 
-    if (producerstore.producer) producerstore.reset();
+    const {
+      producer,
+      reset: resetproducer,
+      set: setproducerstore,
+      add: addproducer
+    } = useProducerStore.getState();
 
-    if (transportstore.send_transport) transportstore.resetsendtransport();
+    const {
+      send_transport,
+      receive_transport,
+      resetsendtransport,
+      resetreceivetransport,
+      setsendtransport,
+      setreceivetransport
+    } = useTransportStore.getState();
 
-    if (transportstore.receive_transport)
-      transportstore.resetreceivetransport();
+    const { id: micid, setstream, settrack } = useMicStore.getState();
+
+    if (producer) resetproducer();
+
+    if (send_transport) resetsendtransport();
+
+    if (receive_transport) resetreceivetransport();
 
     try {
       const { rtp_capabilities } = await request({
@@ -160,7 +167,7 @@ export const useRoom = (room: Room) => {
         }
       );
 
-      transportstore.setsendtransport(sendtransport);
+      setsendtransport(sendtransport);
 
       const { transport_options: receivetransportoptions } = await request({
         socket,
@@ -182,7 +189,7 @@ export const useRoom = (room: Room) => {
         iceServers: []
       });
 
-      transportstore.setreceivetransport(receivetransport);
+      setreceivetransport(receivetransport);
 
       receivetransport.on(
         "connect",
@@ -229,8 +236,8 @@ export const useRoom = (room: Room) => {
 
       const track = stream.getAudioTracks()[0]!;
 
-      micstore.setstream(stream);
-      micstore.settrack(track);
+      setstream(stream);
+      settrack(track);
 
       const producer = await sendtransport.produce({
         track,
@@ -241,18 +248,18 @@ export const useRoom = (room: Room) => {
       });
 
       producer.on("transportclose", () => {
-        producerstore.set({ producer: null });
+        setproducerstore({ producer: null });
       });
 
       producer.on("trackended", async () => {
-        toast.warn("microphone disconnected");
+        toast.warn("Microphone disconnected");
 
         await leave();
 
         await router.replace("/app/rooms");
       });
 
-      producerstore.add(producer);
+      addproducer(producer);
 
       setroomstore({ state: "connected" });
     } catch (e) {
@@ -266,59 +273,66 @@ export const useRoom = (room: Room) => {
         }
       });
     }
-  }, [
-    room._id,
-    socket,
-    producerstore.producer,
-    transportstore.send_transport,
-    transportstore.receive_transport,
-    leave
-  ]);
+  }, [socket, leave, room._id]);
 
   const mute = useCallback(async () => {
     if (!socket) return;
 
-    const producer = producerstore.producer;
+    const { producer, setpaused } = useProducerStore.getState();
 
     if (!producer) return;
 
     producer.pause();
 
-    await request({
-      socket,
-      event: "pause producer",
-      payload: {
-        producer_id: producer.id
-      }
-    });
+    try {
+      await request({
+        socket,
+        event: "pause producer",
+        payload: {
+          producer_id: producer.id
+        }
+      });
 
-    producerstore.setpaused(true);
-  }, [producerstore.producer, socket]);
+      setpaused(true);
+    } catch (e) {
+      console.error("[useRoom.mute()] error", e);
+      producer.resume();
+
+      toast.error("Failed to mute");
+    }
+  }, [socket]);
 
   const unmute = useCallback(async () => {
     if (!socket) return;
 
-    const producer = producerstore.producer;
+    const { producer, setpaused } = useProducerStore.getState();
 
     if (!producer) return;
 
     producer.resume();
 
-    await request({
-      socket,
-      event: "resume producer",
-      payload: {
-        producer_id: producer.id
-      }
-    });
+    try {
+      await request({
+        socket,
+        event: "resume producer",
+        payload: {
+          producer_id: producer.id
+        }
+      });
 
-    producerstore.setpaused(false);
-  }, [producerstore.producer, socket]);
+      setpaused(false);
+    } catch (e) {
+      console.error("[useRoom.unmute()] error", e);
+      producer.pause();
+
+      toast.error("Failed to unmute");
+    }
+  }, [socket]);
 
   const disable = useCallback(async () => {
     if (!socket) return;
 
-    const producer = producerstore.producer;
+    const { producer, remove } = useProducerStore.getState();
 
     if (!producer) return;
 
@@ -332,17 +346,17 @@ export const useRoom = (room: Room) => {
       }
     });
 
-    producerstore.remove();
-  }, [producerstore.producer, socket]);
+    remove();
+  }, [socket]);
 
   const togglemute = useCallback(async () => {
-    const producer = producerstore.producer;
+    const { producer } = useProducerStore.getState();
 
     if (!producer) return;
 
     if (producer.paused) await unmute();
     else await mute();
-  }, [producerstore.producer]);
+  }, [mute, unmute]);
 
   return {
     join,

@@ -6,9 +6,7 @@ import { logger } from "../../../lib/logger.js";
 
 export const ondisconnect = (peer: Peer) => async (reason: string) => {
   if (env.isDevelopment)
-    consola.info(
-      `peer ${peer.user.display_name} disconnected because ${reason}`
-    );
+    consola.info(`${peer.user.display_name} disconnected. Reason: ${reason}.`);
 
   if (!peer.active_room_id) return;
 
@@ -21,10 +19,8 @@ export const ondisconnect = (peer: Peer) => async (reason: string) => {
   } catch (e) {
     const error = e as Error;
 
-    logger.error(`failed to leave room. reason: ${error.message}`, error);
+    logger.error(`Failed to leave room. reason: ${error.message}`, error);
   }
-
-  peer.socket.to(rid).emit("peer left", { peer: peer.user });
 
   Peer.remove(peer);
 };

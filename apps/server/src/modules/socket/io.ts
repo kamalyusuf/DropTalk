@@ -25,7 +25,7 @@ class SocketIO {
   async initialize(server: Server) {
     this.io = new SocketServer(server, {
       cors: {
-        origin: env.WEB_URL,
+        origin: env.WEB_URL.split(",").filter(Boolean),
         credentials: true
       },
       serveClient: false,
@@ -45,13 +45,13 @@ class SocketIO {
       const peer = Peer.create({ user, socket });
 
       if (env.isDevelopment)
-        consola.info(`peer ${peer.user.display_name} connected`);
+        consola.info(`${peer.user.display_name} connected.`);
 
       socket.join(peer.user._id);
 
       for (const event of this.events.values()) {
         socket.on(event.on, async (...args: unknown[]) => {
-          if (!this.io) throw new Error("io not initialized");
+          if (!this.io) throw new Error("IO is not initialized.");
 
           let t,
             __request__: boolean | undefined = false;
@@ -93,7 +93,7 @@ class SocketIO {
       files.map(async (file) => {
         const { handler }: { handler: E } = await import(`./events/${file}`);
 
-        if (!handler) throw new Error(`no handler found for ${file}`);
+        if (!handler) throw new Error(`No handler found for ${file}.`);
 
         this.events.set(handler.on, handler);
       })

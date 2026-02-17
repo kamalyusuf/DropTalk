@@ -45,3 +45,5 @@ export type ServerEvent = keyof ClientToServerEvents;
 export type ClientEvent = keyof ServerToClientEvents;
 
 export type TypedSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
+
+export type SocketEventHandler<E extends ClientEvent> = ServerToClientEvents[E];

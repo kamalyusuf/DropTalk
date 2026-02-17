@@ -50,11 +50,32 @@ const connect = (me: User | null): Promise<TypedSocket> =>
       }
     );
 
-    socket.on("connect", () => resolve(socket));
+    const cleanup = () => {
+      socket.off("connect", on_connect);
+      socket.off("connect_error", on_connect_error);
+      socket.io.off("error", on_manager_error);
+    };
 
-    socket.on("connect_error", reject);
+    const on_connect = () => {
+      cleanup();
+      resolve(socket);
+    };
 
-    socket.io.on("error", reject);
+    const on_connect_error = (error: Error) => {
+      cleanup();
+      socket.disconnect();
+      reject(error);
+    };
+
+    const on_manager_error = (error: Error) => {
+      cleanup();
+      socket.disconnect();
+      reject(error);
+    };
+
+    socket.on("connect", on_connect);
+    socket.on("connect_error", on_connect_error);
+    socket.io.on("error", on_manager_error);
   });
 
 interface Props {
@@ -98,13 +119,16 @@ export const SocketProvider = ({ children }: Props) => {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("disconnect", () => {
+    const on_disconnect = () => {
       setsocket(null);
       setstate("disconnected");
       called.current = false;
-    });
+    };
+
+    socket.on("disconnect", on_disconnect);
 
     return () => {
+      socket.off("disconnect", on_disconnect);
       socket.disconnect();
     };
   }, [socket]);
