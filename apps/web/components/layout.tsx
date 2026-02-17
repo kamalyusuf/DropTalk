@@ -1,12 +1,14 @@
 import Head from "next/head";
-import { Box, Group, Drawer, Burger } from "@mantine/core";
+import { Box, Group, Drawer, Burger, ThemeIcon, Text } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { AppSidebar } from "./app-sidebar";
 import type { PropsWithChildren } from "react";
+import Link from "next/link";
+import { IconMicrophone } from "@tabler/icons-react";
+import { useRoomStore } from "../store/room";
 
 interface Props {
   title?: string;
-  children: React.ReactNode;
 }
 
 export const Layout = ({ children, title }: PropsWithChildren<Props>) => {
@@ -14,6 +16,8 @@ export const Layout = ({ children, title }: PropsWithChildren<Props>) => {
   const isMobile = useMediaQuery("(max-width: 768px)", true, {
     getInitialValueInEffect: false
   });
+  const roomstate = useRoomStore((state) => state.state);
+  const inroom = roomstate === "connected";
 
   return (
     <>
@@ -76,9 +80,25 @@ export const Layout = ({ children, title }: PropsWithChildren<Props>) => {
                   size="sm"
                   color="white"
                 />
-                <Box style={{ fontWeight: 700, fontSize: 18, color: "white" }}>
-                  DropTalk
-                </Box>
+                <Link
+                  href="/app/rooms"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    pointerEvents: inroom ? "none" : undefined
+                  }}
+                  aria-disabled={inroom}
+                  tabIndex={inroom ? -1 : 0}
+                >
+                  <Group gap="xs">
+                    <ThemeIcon variant="transparent">
+                      <IconMicrophone />
+                    </ThemeIcon>
+                    <Text size="xl" fw={700}>
+                      DropTalk
+                    </Text>
+                  </Group>
+                </Link>
               </Group>
             </Box>
           )}

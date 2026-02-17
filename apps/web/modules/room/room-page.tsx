@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Loader, ActionIcon, Drawer, Badge, Box } from "@mantine/core";
 import { useHotkeys, useMounted } from "@mantine/hooks";
 import type { Room } from "types";
@@ -32,9 +32,10 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
   const { state } = useSocket();
   const [ok, setok] = useState(false);
   const called = useRef(false);
-  const { replace, asPath } = useRouter();
+  const { replace, events } = useRouter();
   const matches = useSmallLayout();
   const { opened, open, close, unread } = useRoomChatDrawer();
+  const left = useRef(false);
 
   const locked = room.status === "protected";
 
@@ -48,7 +49,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
 
       join();
     }
-  }, [state, ok, locked]);
+  }, [state, ok, locked, join]);
 
   useEffect(() => {
     if (roomstate !== "closed") return;
@@ -57,18 +58,29 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
     replace("/app/rooms");
   }, [roomstate, replace]);
 
+  const safeleave = useCallback(async () => {
+    if (left.current) return;
+
+    left.current = true;
+    await leave();
+  }, [leave]);
+
+  const exit = useCallback(async () => {
+    await safeleave();
+    await replace("/app/rooms");
+  }, [safeleave, replace]);
+
   useEffect(() => {
-    const listener = () => {
-      window.history.pushState(null, "", asPath);
+    const listener = async () => {
+      await safeleave();
     };
 
-    window.history.pushState(null, "", asPath);
-    window.addEventListener("popstate", listener);
+    events.on("routeChangeStart", listener);
 
     return () => {
-      window.removeEventListener("popstate", listener);
+      events.off("routeChangeStart", listener);
     };
-  }, [asPath]);
+  }, [events, safeleave]);
 
   useHotkeys([["m", () => togglemute()]]);
 
@@ -109,7 +121,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
             overflow: "hidden"
           }}
         >
-          <RoomPanel room={room} actions={{ leave, togglemute }} />
+          <RoomPanel room={room} actions={{ leave: exit, togglemute }} />
           {matches ? (
             <>
               <Box

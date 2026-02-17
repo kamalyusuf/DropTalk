@@ -12,7 +12,6 @@ import {
 } from "@mantine/core";
 import { ToggleMuteButton } from "../audio/toggle-mute-button";
 import { PeerBadge } from "../user/peer-badge";
-import { useRouter } from "next/router";
 import type { Room } from "types";
 import { usePeerStore } from "../../store/peer";
 import { useUserStore } from "../../store/user";
@@ -20,7 +19,6 @@ import { useRoomStore } from "../../store/room";
 import { useClipboard, useDisclosure, useHotkeys } from "@mantine/hooks";
 import { IconShare, IconInfoCircle, IconLogout } from "@tabler/icons-react";
 import { useRoomTimeElapsed } from "./use-room-time-elapsed";
-import { useCallback } from "react";
 import { KeyboardShortcut } from "../../components/keyboard-shortcut";
 import { useShallow } from "../../hooks/use-shallow";
 
@@ -33,7 +31,6 @@ interface Props {
 }
 
 export const RoomPanel = ({ room, actions }: Props) => {
-  const router = useRouter();
   const peers = usePeerStore((state) => state.peers);
   const user = useUserStore((state) => state.user);
   const clipboard = useClipboard({ timeout: 1500 });
@@ -51,20 +48,9 @@ export const RoomPanel = ({ room, actions }: Props) => {
   const leaving = roomstate === "disconnecting";
 
   useHotkeys([
-    [
-      "l",
-      async () => {
-        await actions.leave();
-        await router.replace("/app/rooms");
-      }
-    ],
+    ["l", actions.leave],
     ["s", () => clipboard.copy(window.location)]
   ]);
-
-  const leave = useCallback(async () => {
-    await actions.leave();
-    await router.replace("/app/rooms");
-  }, [actions.leave]);
 
   if (!user) return null;
 
@@ -155,7 +141,7 @@ export const RoomPanel = ({ room, actions }: Props) => {
                 radius="md"
                 variant="subtle"
                 color="red"
-                onClick={leave}
+                onClick={actions.leave}
                 disabled={leaving}
                 loading={leaving}
                 leftSection={<IconLogout size={16} />}

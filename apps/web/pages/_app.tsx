@@ -3,7 +3,7 @@ import "@mantine/core/styles.css";
 import "../styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
 import { Slide, ToastContainer } from "react-toastify";
 import { theme } from "../mantine/theme";
@@ -27,6 +27,7 @@ Router.events.on("routeChangeError", NProgress.done);
 const App = ({ Component: C, pageProps }: AppProps) => {
   const Component = C as PageComponent;
   const mounted = useMounted();
+  const router = useRouter();
   const [client] = useState(
     () =>
       new QueryClient({
@@ -48,6 +49,8 @@ const App = ({ Component: C, pageProps }: AppProps) => {
 
   if (!mounted) return null;
 
+  const landing = !router.pathname.startsWith("/app");
+
   return (
     <QueryClientProvider client={client}>
       <Head>
@@ -66,20 +69,25 @@ const App = ({ Component: C, pageProps }: AppProps) => {
             style={{ marginTop: 100 }}
           />
         ) : (
-          <SocketProvider>
-            <>
-              {Component.authenticate === "yes" ? (
-                <Authenticated>
+          <>
+            {landing ? (
+              <Component {...pageProps} />
+            ) : (
+              <SocketProvider>
+                {Component.authenticate === "yes" ? (
+                  <Authenticated>
+                    <Component {...pageProps} />
+                  </Authenticated>
+                ) : Component.authenticate === "not" ? (
+                  <Unauthenticated>
+                    <Component {...pageProps} />
+                  </Unauthenticated>
+                ) : (
                   <Component {...pageProps} />
-                </Authenticated>
-              ) : Component.authenticate === "not" ? (
-                <Unauthenticated>
-                  <Component {...pageProps} />
-                </Unauthenticated>
-              ) : (
-                <Component {...pageProps} />
-              )}
-            </>
+                )}
+                <SocketHandler />
+              </SocketProvider>
+            )}
             {process.env.NODE_ENV === "production" && <Analytics />}
             <ToastContainer
               position="top-right"
@@ -91,11 +99,9 @@ const App = ({ Component: C, pageProps }: AppProps) => {
               transition={Slide}
               limit={5}
             />
-            <SocketHandler />
-          </SocketProvider>
+          </>
         )}
       </MantineProvider>
-
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
