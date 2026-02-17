@@ -57,7 +57,7 @@ export const validateargs = (
     if (typeof p.__request__ === "undefined")
       return p as EventPayload<ServerEvent>;
 
-    if (!p.payload)
+    if (!Object.prototype.hasOwnProperty.call(p, "payload"))
       throw new UnprocessableEntityError(
         `Expected payload to be contained in 'payload' property if __request__ (i.e, The request is coming from 'request' function) is present [and must be true].`
       );

@@ -62,9 +62,8 @@ export class MediasoupRoom {
   }
 
   static cleanup() {
-    MediasoupRoom.rooms.forEach((room) => {
+    for (const room of MediasoupRoom.rooms.values())
       if (room.isstale()) room.cleanup();
-    });
   }
 
   static findbyid(room_id: string): MediasoupRoom {
@@ -238,7 +237,7 @@ export class MediasoupRoom {
     // await consumer.resume(); // moved to "consumer consumed" event
   }
 
-  async leave(peer: Peer): Promise<void> {
+  leave(peer: Peer): void {
     if (
       !peer.active_room_id ||
       !this.peers.has(peer.user._id) ||
