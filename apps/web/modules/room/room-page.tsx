@@ -49,7 +49,7 @@ export const RoomPage: PageComponent<Props> = ({ room }) => {
 
       join();
     }
-  }, [state, ok, locked]);
+  }, [state, ok, locked, join]);
 
   useEffect(() => {
     if (roomstate !== "closed") return;
