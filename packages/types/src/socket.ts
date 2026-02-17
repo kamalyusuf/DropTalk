@@ -14,6 +14,7 @@ export type EventError = {
     "request error"
   >;
   errors: Omit<ErrorProps, "location">[];
+  request_id?: string;
 };
 
 export interface ServerToClientEvents<

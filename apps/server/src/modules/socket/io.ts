@@ -54,12 +54,14 @@ class SocketIO {
           if (!this.io) throw new Error("IO is not initialized.");
 
           let t,
-            __request__: boolean | undefined = false;
+            __request__: boolean | undefined = false,
+            request_id: string | undefined;
 
           try {
             t = validateargs(...args);
 
             __request__ = t.__request__;
+            request_id = t.request_id;
 
             if (event.input && t.eventpayload)
               await s.validateasync(s.object(event.input(s)), t.eventpayload);
@@ -73,7 +75,14 @@ class SocketIO {
               peer
             });
           } catch (e) {
-            onerror({ error: e as Error, peer, socket, event, __request__ });
+            onerror({
+              error: e as Error,
+              peer,
+              socket,
+              event,
+              __request__,
+              request_id
+            });
           }
         });
       }
